@@ -1,0 +1,132 @@
+package controllers;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import exceptions.UsernameAlreadyExistsException;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import utils.PasswordHasher;
+import utils.PathHolder;
+
+import java.io.File;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.HashMap;
+import java.util.List;
+
+public class SignInController {
+
+    @FXML
+    public PasswordField passwordField;
+    @FXML
+    public TextField usernameField;
+    @FXML
+    public Label invalidLabel;
+
+    @FXML
+    private void initialize()
+    {
+        invalidLabel.setText("Test");
+    }
+
+    public void backButtonPushed()
+    {
+        try {
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            Parent sign_up_root = FXMLLoader.load(getClass().getResource("../fxml/welcome.fxml"));
+            Scene scene = new Scene(sign_up_root, 800, 600);
+            stage.setScene(scene);
+            System.out.println("pressed back");
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public  void signInButtonPushed()
+    {
+        String username = usernameField.getText().toLowerCase();
+
+        File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/credentials.json")));
+        //read credentials
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<HashMap<String, String>> credentials_list = null;
+        try {
+            credentials_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, String>>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //check credentials
+        int ok = 0;
+        boolean matched = false;
+        if(credentials_list.size() != 0)
+        {
+            for (HashMap<String, String> cred : credentials_list)
+                if (cred.get("username").equals(username.toLowerCase())) //check for username
+                {
+                    ok = 1;
+                    //check password
+                    try {
+                        matched = PasswordHasher.validatePassword(passwordField.getText(), cred.get("password"));
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    } catch (InvalidKeySpecException e) {
+                        e.printStackTrace();
+                    }
+                    if (matched)
+                    {
+                        invalidLabel.setText("");
+                        signInSuccessful(username, cred.get("role"));
+                    }
+
+                    else
+                        invalidLabel.setText("Invalid password");
+                    break;
+                }
+        }
+        if(ok == 0)
+            invalidLabel.setText("Username does not exist");
+
+    }
+
+    private void signInSuccessful(String username, String role)
+    {
+        System.out.println("Sign in as " + role);
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            if(role.equals("team manager"))
+            {
+                System.out.println("Sign in as TM");
+                loader.setLocation(getClass().getResource("../fxml/welcome_team_manager.fxml"));
+                Parent welcomeTM_root= loader.load();
+                WelcomeTMController controller= loader.getController();
+                controller.initData(username);
+                Stage stage = (Stage) usernameField.getScene().getWindow();
+                Scene scene = new Scene(welcomeTM_root, 800, 600);
+                stage.setScene(scene);
+            }
+
+            else if(role.equals("player agent"))
+            {
+                System.out.println("Sign in as PA");
+                loader.setLocation(getClass().getResource("../fxml/welcome_player_agent.fxml"));
+                Parent welcomePA_root= loader.load();
+                WelcomePAController controller= loader.getController();
+                controller.initData(username);
+                Stage stage = (Stage) usernameField.getScene().getWindow();
+                Scene scene = new Scene(welcomePA_root, 800, 600);
+                stage.setScene(scene);
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+}
