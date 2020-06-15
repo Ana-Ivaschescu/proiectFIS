@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.TeamManager;
 import utils.PasswordHasher;
 import utils.PathHolder;
 
@@ -99,18 +100,50 @@ public class SignInController {
     private void signInSuccessful(String username, String role)
     {
         System.out.println("Sign in as " + role);
+        ObjectMapper objectMapper = new ObjectMapper();
+
         try {
             FXMLLoader loader = new FXMLLoader();
             if(role.equals("team manager"))
             {
                 System.out.println("Sign in as TM");
+                //read tm lists
+                File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/team_manager.json")));
+                List<HashMap<String, TeamManager>> tm_list = null;
+                try {
+                    tm_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, TeamManager>>>(){});
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(tm_list);
+
                 loader.setLocation(getClass().getResource("../fxml/welcome_team_manager.fxml"));
-                Parent welcomeTM_root= loader.load();
-                WelcomeTMController controller= loader.getController();
-                controller.initData(username);
-                Stage stage = (Stage) usernameField.getScene().getWindow();
-                Scene scene = new Scene(welcomeTM_root, 800, 600);
-                stage.setScene(scene);
+                int ok = 0;
+                for(HashMap<String, TeamManager> tm : tm_list)
+                    if(tm.containsKey(username)) {
+                        loader.setLocation(getClass().getResource("../fxml/team_manager_main.fxml"));
+                        ok = 1;
+                        break;
+                    }
+                Parent root= loader.load();
+                if(ok == 0) {
+                    WelcomeTMController controller;
+                    controller = loader.getController();
+                    controller.initData(username);
+                    Stage stage = (Stage) usernameField.getScene().getWindow();
+                    Scene scene = new Scene(root, 800, 600);
+                    stage.setScene(scene);
+                }
+                else
+                {
+                    MainTMController controller;
+                    controller= loader.getController();
+                    controller.initData(username);
+                    Stage stage = (Stage) usernameField.getScene().getWindow();
+                    Scene scene = new Scene(root, 800, 600);
+                    stage.setScene(scene);
+                }
+
             }
 
             else if(role.equals("player agent"))
