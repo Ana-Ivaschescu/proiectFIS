@@ -5,6 +5,7 @@ public class TeamManager {
     private Team team;
 
     //constructor
+    public TeamManager(){ super(); }
     public TeamManager(String name) {
         this.name = name;
     }

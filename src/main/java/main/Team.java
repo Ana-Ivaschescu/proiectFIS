@@ -6,16 +6,27 @@ public class Team {
     private String name;
     private String city;
     private String league;
+    private String description;
     private ArrayList<Player> players = new ArrayList<Player>();
     //poza echipa
 
     //constructor
-    public Team(String name, String city, String league) {
+    public Team() {super();}
+    public Team(String name, String city, String league, String description) {
         this.name = name;
         this.city = city;
         this.league = league;
+        this.description = description;
     }
+
+
+
+
+
     //getters
+    public String getDescription() {
+        return description;
+    }
     public String getName() {
         return name;
     }
@@ -33,6 +44,9 @@ public class Team {
     }
 
     //setters
+    public void setDescription(String description) {
+        this.description = description;
+    }
     public void setLeague(String league) {
         this.league = league;
     }
