@@ -60,19 +60,19 @@ public class Team {
     public void addPlayer(Player p)
     {
         String pos = p.getPlaying_position();
-        if(pos == "guard" && nr_guards < nr_guards_max)
+        if(pos.equals("guard") && nr_guards < nr_guards_max)
         {
             nr_guards++;
             players.add(p);
             p.setAvailable(false);
         }
-        if(pos == "wing" && nr_wings < nr_wings_max)
+        if(pos.equals("wing") && nr_wings < nr_wings_max)
         {
             nr_guards++;
             players.add(p);
             p.setAvailable(false);
         }
-        if(pos == "center" && nr_centers < nr_centers_max)
+        if(pos.equals("center") && nr_centers < nr_centers_max)
         {
             nr_guards++;
             players.add(p);

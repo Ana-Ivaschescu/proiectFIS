@@ -25,6 +25,8 @@ import java.util.List;
 
 public class SignInController {
 
+    private List<HashMap<String, PlayerAgent>> pa_hash_list;
+    private List<HashMap<String, TeamManager>> tm_hash_list;
     @FXML
     public PasswordField passwordField;
     @FXML
@@ -102,26 +104,26 @@ public class SignInController {
     {
         System.out.println("Sign in as " + role);
         ObjectMapper objectMapper = new ObjectMapper();
-
+        File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/team_manager.json")));
+        try {
+            tm_hash_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, TeamManager>>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
+        try {
+            pa_hash_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, PlayerAgent>>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         try {
             FXMLLoader loader = new FXMLLoader();
             if(role.equals("team manager"))
             {
-                System.out.println("Sign in as TM");
-                //read tm lists
-                File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/team_manager.json")));
-                List<HashMap<String, TeamManager>> tm_list = null;
-                try {
-                    tm_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, TeamManager>>>(){});
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                //System.out.println(tm_list);
-
                 loader.setLocation(getClass().getResource("../fxml/welcome_team_manager.fxml"));
                 int ok = 0;
-                if (tm_list!= null)
-                    for(HashMap<String, TeamManager> tm : tm_list)
+                if (tm_hash_list!= null)
+                    for(HashMap<String, TeamManager> tm : tm_hash_list)
                         if(tm.containsKey(username)) {
                             loader.setLocation(getClass().getResource("../fxml/team_manager_main.fxml"));
                             ok = 1;
@@ -149,20 +151,10 @@ public class SignInController {
             {
                 {
                     System.out.println("Sign in as PA");
-                    //read tm lists
-                    File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
-                    List<HashMap<String, PlayerAgent>> pa_list = null;
-                    try {
-                        pa_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, PlayerAgent>>>(){});
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    //System.out.println(pa_list);
-
                     loader.setLocation(getClass().getResource("../fxml/welcome_player_agent.fxml"));
                     int ok = 0;
-                    if(pa_list != null)
-                        for(HashMap<String, PlayerAgent> pa : pa_list)
+                    if(pa_hash_list != null)
+                        for(HashMap<String, PlayerAgent> pa : pa_hash_list)
                             if(pa.containsKey(username)) {
                                 loader.setLocation(getClass().getResource("../fxml/player_agent_main.fxml"));
                                 ok = 1;
@@ -184,7 +176,6 @@ public class SignInController {
                     Stage stage = (Stage) usernameField.getScene().getWindow();
                     Scene scene = new Scene(root, 800, 600);
                     stage.setScene(scene);
-
                 }
             }
         }catch(IOException e){

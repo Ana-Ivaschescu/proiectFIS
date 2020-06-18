@@ -6,8 +6,18 @@
       "city" : "",
       "league" : "",
       "description" : "",
-      "players" : [ ]
+      "players" : [ {
+        "name" : "player_1",
+        "playing_position" : "center",
+        "description" : "dsad",
+        "available" : false
+      } ]
     },
-    "request_list" : []
+    "request_list" : [ {
+      "tm_name" : "tm_name_1",
+      "pa_name" : "pa_name_1",
+      "p_name" : "player_1",
+      "status" : "accept"
+    } ]
   }
 } ]
