@@ -36,10 +36,10 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Button layoutX="283.0" layoutY="352.0" mnemonicParsing="false" onAction="#seeEditButtonPushed" text="See/Edit Player Positions" />
+      <Button layoutX="283.0" layoutY="352.0" mnemonicParsing="false" onAction="#seeEditButtonPushed" text="See Player Positions" />
       <HBox layoutY="-2.0" prefHeight="400.0" prefWidth="298.0">
          <children>
-            <ListView fx:id="paListView" />
+            <ListView fx:id="paListView" onMouseReleased="#paListClick" />
             <ScrollBar orientation="VERTICAL" />
          </children>
       </HBox>

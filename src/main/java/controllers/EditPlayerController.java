@@ -21,7 +21,7 @@ import java.util.List;
 public class EditPlayerController {
 
     @FXML
-    public TextField nameField;
+    public Label nameLabel;
     @FXML
     public TextField playingPosField;
     @FXML
@@ -34,7 +34,7 @@ public class EditPlayerController {
     {
         if(p!= null) {
             this.p = p;
-            nameField.setText(p.getName());
+            nameLabel.setText(p.getName());
             playingPosField.setText(p.getPlaying_position());
             descriptionField.setText(p.getDescription());
         }
@@ -45,10 +45,8 @@ public class EditPlayerController {
     public void saveButtonPushed()
     {
 
-        String player_name = nameField.getText();
         String player_pos = playingPosField.getText();
         String player_desc = descriptionField.getText();
-        p.setName(player_name);
         p.setPlaying_position(player_pos);
         p.setDescription(player_desc);
 
@@ -72,7 +70,7 @@ public class EditPlayerController {
         MainPAController controller;
         controller= loader.getController();
         controller.initData(username);
-        Stage stage = (Stage) nameField.getScene().getWindow();
+        Stage stage = (Stage) playingPosField.getScene().getWindow();
         Scene scene = new Scene(root, 800, 600);
         stage.setScene(scene);
     }

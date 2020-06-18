@@ -1,20 +1,21 @@
 [ {
   "pa1" : {
-    "name" : "player_1",
+    "name" : "pa_name_1",
+    "request_list" : [ {
+      "tm_name" : "tm_name_1",
+      "pa_name" : "pa_name_1",
+      "p_name" : "player_1",
+      "status" : "accept"
+    } ],
     "players" : [ {
-      "name" : "player_1_nume",
+      "name" : "player_1",
       "playing_position" : "center",
-      "description" : "dasdasda",
-      "available" : true
+      "description" : "dsad",
+      "available" : false
     }, {
-      "name" : "player_2_nume",
-      "playing_position" : "center",
-      "description" : "dsdds",
-      "available" : true
-    }, {
-      "name" : "player_3",
-      "playing_position" : "wing",
-      "description" : "dasdadadaca",
+      "name" : "player_2",
+      "playing_position" : "guard",
+      "description" : "sdascsa",
       "available" : true
     } ]
   }

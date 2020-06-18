@@ -15,7 +15,7 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Label fx:id="nameLabel" layoutX="105.0" layoutY="23.0" prefHeight="27.0" prefWidth="105.0" text="Label">
+      <Label fx:id="nameLabel" layoutX="105.0" layoutY="23.0" prefHeight="35.0" prefWidth="390.0" text="Label">
          <font>
             <Font size="24.0" />
          </font>
@@ -26,7 +26,7 @@
          </font>
       </Text>
       <Button layoutX="388.0" layoutY="73.0" mnemonicParsing="false" onAction="#addPlayerButtonPushed" prefHeight="25.0" prefWidth="87.0" text="Add Player" />
-      <Button layoutX="492.0" layoutY="73.0" mnemonicParsing="false" text="See Requests" />
+      <Button layoutX="492.0" layoutY="73.0" mnemonicParsing="false" onAction="#seeRequestsButtonPushed" text="See Requests" />
       <Text layoutX="236.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Players" wrappingWidth="128.474609375">
          <font>
             <Font size="18.0" />

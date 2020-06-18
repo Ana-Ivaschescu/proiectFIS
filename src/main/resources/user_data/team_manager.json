@@ -1,23 +1,23 @@
 [ {
   "tm" : {
-    "name" : "nume_1",
+    "name" : "tm_name_1",
     "team" : {
-      "name" : "echipa_sdasdjklasjdk",
-      "city" : "oras2",
-      "league" : "liga1",
-      "description" : "desc1sadasdasd",
-      "players" : [ ]
-    }
-  }
-}, {
-  "tm3" : {
-    "name" : "nume3",
-    "team" : {
-      "name" : "ech_3",
-      "city" : "dasdasdas",
-      "league" : "scasc",
-      "description" : "cascascascas",
-      "players" : [ ]
-    }
+      "name" : "team_1",
+      "city" : "",
+      "league" : "",
+      "description" : "",
+      "players" : [ {
+        "name" : "player_1",
+        "playing_position" : "center",
+        "description" : "dsad",
+        "available" : false
+      } ]
+    },
+    "request_list" : [ {
+      "tm_name" : "tm_name_1",
+      "pa_name" : "pa_name_1",
+      "p_name" : "player_1",
+      "status" : "accept"
+    } ]
   }
 } ]

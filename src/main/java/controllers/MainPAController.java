@@ -14,7 +14,6 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import main.Player;
 import main.PlayerAgent;
-import main.Team;
 import main.TeamManager;
 import utils.PathHolder;
 
@@ -29,7 +28,8 @@ public class MainPAController {
 
     private String username;
     private PlayerAgent pa;
-    private List<HashMap<String, PlayerAgent>> pa_list = null;
+    private List<HashMap<String, PlayerAgent>> pa_hash_list = null;
+    private List<HashMap<String, TeamManager>> tm_hash_list = null;
     private ArrayList<TeamManager> tm_list = new ArrayList<TeamManager>();
     private ObservableList<String> tm_team_list = FXCollections.observableArrayList();
 
@@ -49,11 +49,11 @@ public class MainPAController {
         ObjectMapper objectMapper = new ObjectMapper();
         //List<HashMap<String, PlayerAgent>> pa_list = null;
         try {
-            pa_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, PlayerAgent>>>(){});
+            pa_hash_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, PlayerAgent>>>(){});
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (HashMap<String, PlayerAgent> stringPlayerAgentHashMapHashMap : pa_list)
+        for (HashMap<String, PlayerAgent> stringPlayerAgentHashMapHashMap : pa_hash_list)
             if (stringPlayerAgentHashMapHashMap.containsKey(username)) {
                 System.out.println(stringPlayerAgentHashMapHashMap.get(username));
                 this.pa = stringPlayerAgentHashMapHashMap.get(username);
@@ -65,14 +65,14 @@ public class MainPAController {
 
         //load tm_list
         f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/team_manager.json")));
-        List<HashMap<String, TeamManager>> tm_hash = null;
+
         try {
-            tm_hash = objectMapper.readValue(f, new TypeReference<List<HashMap<String, TeamManager>>>(){});
+            tm_hash_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, TeamManager>>>(){});
         } catch (IOException e) {
             e.printStackTrace();
         }
         TeamManager temp_tm;
-        for (HashMap<String, TeamManager> stringTeamManagerHashMap : tm_hash)
+        for (HashMap<String, TeamManager> stringTeamManagerHashMap : tm_hash_list)
         {
             temp_tm = (TeamManager)stringTeamManagerHashMap.values().toArray()[0];
             tm_list.add(temp_tm);
@@ -139,7 +139,7 @@ public class MainPAController {
         }
         EditPlayerController controller;
         controller= loader.getController();
-        controller.initData(selected_p, pa_list, username);
+        controller.initData(selected_p, pa_hash_list, username);
         Stage stage = (Stage) nameLabel.getScene().getWindow();
         //stage.setTitle("Player data");
         Scene scene = new Scene(root, 800, 600);
@@ -161,6 +161,24 @@ public class MainPAController {
         AddPlayerController controller;
         controller= loader.getController();
         controller.initData(username);
+        Stage stage = (Stage) nameLabel.getScene().getWindow();
+        Scene scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+    }
+
+    public void seeRequestsButtonPushed()
+    {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../fxml/pa_check_requests.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        PACheckRequests controller;
+        controller= loader.getController();
+        controller.initData(username,pa, tm_hash_list, pa_hash_list);
         Stage stage = (Stage) nameLabel.getScene().getWindow();
         Scene scene = new Scene(root, 800, 600);
         stage.setScene(scene);

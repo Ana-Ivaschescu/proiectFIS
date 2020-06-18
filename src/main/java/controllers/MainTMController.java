@@ -37,6 +37,8 @@ public class MainTMController {
     private TeamManager tm;
     private String username;
     private ArrayList<PlayerAgent> pa_list = new ArrayList<PlayerAgent>();
+    private List<HashMap<String, PlayerAgent>> pa_hash;
+    private List<HashMap<String, TeamManager>> tm_hash;
 
     public void initData(String username)
     {
@@ -44,14 +46,14 @@ public class MainTMController {
         //usernameLabel.setText(this.username);
         File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/team_manager.json")));
         ObjectMapper objectMapper = new ObjectMapper();
-        List<HashMap<String, TeamManager>> tm_list = null;
+        //List<HashMap<String, TeamManager>> tm_hash = null;
         try {
-            tm_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, TeamManager>>>(){});
+            tm_hash = objectMapper.readValue(f, new TypeReference<List<HashMap<String, TeamManager>>>(){});
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        for (HashMap<String, TeamManager> stringTeamManagerHashMap : tm_list)
+        for (HashMap<String, TeamManager> stringTeamManagerHashMap : tm_hash)
             if (stringTeamManagerHashMap.containsKey(username)) {
                 System.out.println(stringTeamManagerHashMap.get(username));
                 this.tm = stringTeamManagerHashMap.get(username);
@@ -63,7 +65,7 @@ public class MainTMController {
         descriptionLabel.setText(tm.getTeam().getDescription());
 
         f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
-        List<HashMap<String, PlayerAgent>> pa_hash = null;
+        //List<HashMap<String, PlayerAgent>> pa_hash = null;
         try {
             pa_hash = objectMapper.readValue(f, new TypeReference<List<HashMap<String, PlayerAgent>>>(){});
         } catch (IOException e) {
@@ -102,6 +104,30 @@ public class MainTMController {
 
 
     }
+    public void paListClick()
+    {
+        String pa_name = paListView.getSelectionModel().getSelectedItem();
+        PlayerAgent selected_pa = null;
+        for(int i=0; i<pa_list.size(); i++) // get player agent by name
+            if(pa_list.get(i).getName().equals(pa_name))
+                selected_pa = pa_list.get(i);
 
-
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../fxml/check_player_agent.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        CheckPlayerAgentController controller;
+        controller= loader.getController();
+        controller.initData(selected_pa, tm, username, pa_hash, tm_hash);
+        Stage stage = (Stage) teamNameLabel.getScene().getWindow();
+        //stage.setTitle("Player data");
+        Scene scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
+
