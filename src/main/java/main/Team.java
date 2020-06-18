@@ -9,6 +9,10 @@ public class Team {
     private String description;
     private ArrayList<Player> players = new ArrayList<Player>();
     //poza echipa
+    private int nr_guards = 0;
+    private int nr_centers = 0;
+    private  int nr_wings = 0;
+    private int nr_guards_max = 5, nr_wings_max = 5, nr_centers_max = 5;
 
     //constructor
     public Team() {super();}
@@ -18,11 +22,6 @@ public class Team {
         this.league = league;
         this.description = description;
     }
-
-
-
-
-
     //getters
     public String getDescription() {
         return description;
@@ -58,10 +57,31 @@ public class Team {
     public void setName(String name) {
         this.name = name;
     }
-
-    //add player
-    public void addPlayer(Player player)
+    public void addPlayer(Player p)
     {
-        this.players.add(player);
+        String pos = p.getPlaying_position();
+        if(pos == "guard" && nr_guards < nr_guards_max)
+        {
+            nr_guards++;
+            players.add(p);
+            p.setAvailable(false);
+        }
+        if(pos == "wing" && nr_wings < nr_wings_max)
+        {
+            nr_guards++;
+            players.add(p);
+            p.setAvailable(false);
+        }
+        if(pos == "center" && nr_centers < nr_centers_max)
+        {
+            nr_guards++;
+            players.add(p);
+            p.setAvailable(false);
+        }
     }
+
+
+
+
+
 }

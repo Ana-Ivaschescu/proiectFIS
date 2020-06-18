@@ -1,20 +1,16 @@
 [ {
   "pa1" : {
-    "name" : "player_1",
+    "name" : "pa_name_1",
+    "request_list" : [],
     "players" : [ {
-      "name" : "player_1_nume",
+      "name" : "player_1",
       "playing_position" : "center",
-      "description" : "dasdasda",
+      "description" : "dsad",
       "available" : true
     }, {
-      "name" : "player_2_nume",
-      "playing_position" : "center",
-      "description" : "dsdds",
-      "available" : true
-    }, {
-      "name" : "player_3",
-      "playing_position" : "wing",
-      "description" : "dasdadadaca",
+      "name" : "player_2",
+      "playing_position" : "guard",
+      "description" : "sdascsa",
       "available" : true
     } ]
   }
