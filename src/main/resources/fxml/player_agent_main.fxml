@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainPAController">
    <children>
-      <ListView fx:id="listView" layoutY="50.0" prefHeight="350.0" prefWidth="212.0" />
+      <ListView fx:id="listView" layoutY="50.0" onMouseReleased="#mouseClickListView" prefHeight="350.0" prefWidth="212.0" />
       <Text layoutX="229.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" wrappingWidth="70.13671875">
          <font>
             <Font size="18.0" />

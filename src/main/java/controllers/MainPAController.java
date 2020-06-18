@@ -6,8 +6,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 import main.PlayerAgent;
 import main.Team;
 import main.TeamManager;
@@ -68,8 +72,40 @@ public class MainPAController {
         {
             temp_tm = (TeamManager)stringTeamManagerHashMap.values().toArray()[0];
             tm_list.add(temp_tm);
-            tm_team_list.add(temp_tm.getName() + " " + temp_tm.getTeam().getName());
+            tm_team_list.add(temp_tm.getName() + "  |  "  + temp_tm.getTeam().getName());
         }
         listView.setItems((tm_team_list));
+    }
+
+    @FXML
+    public void mouseClickListView()
+    {
+        String manager_and_team_name = listView.getSelectionModel().getSelectedItem();
+        String manager_name = manager_and_team_name.split("  |  ")[0];
+        System.out.println(manager_name);
+        TeamManager selected_tm = null;
+        for (TeamManager tm : tm_list)
+        {
+            if(manager_name.equals(tm.getName()))
+                selected_tm = tm;
+        }
+
+        //make and open popup
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../fxml/team_data_popup.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        TeamDataPopupController controller;
+        controller= loader.getController();
+        controller.initData(selected_tm);
+        Stage stage = new Stage();
+        stage.setTitle("Team data");
+        Scene scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+        stage.show();
     }
 }
