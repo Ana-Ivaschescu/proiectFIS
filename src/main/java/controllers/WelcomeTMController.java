@@ -57,6 +57,24 @@ public class WelcomeTMController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../fxml/team_manager_main.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MainTMController controller;
+        controller= loader.getController();
+        controller.initData(username);
+        Stage stage = (Stage) team_namefield.getScene().getWindow();
+        Scene scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
     }
 
+
 }
+
+

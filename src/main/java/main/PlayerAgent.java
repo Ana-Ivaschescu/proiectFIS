@@ -10,6 +10,10 @@ public class PlayerAgent {
     public PlayerAgent(String name) {
         this.name = name;
     }
+    public PlayerAgent()
+    {
+        super();
+    }
 
     //getters and setters
     public String getName() {
