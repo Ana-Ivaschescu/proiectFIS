@@ -112,5 +112,15 @@ public class SignUpController {
         }
 
         System.out.println(matched);
+        try {
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            Parent sign_up_root = FXMLLoader.load(getClass().getResource("../fxml/welcome.fxml"));
+            Scene scene = new Scene(sign_up_root, 800, 600);
+            stage.setScene(scene);
+            System.out.println("sign in");
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
     }
 }

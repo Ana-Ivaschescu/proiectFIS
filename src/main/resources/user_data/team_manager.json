@@ -2,10 +2,21 @@
   "tm" : {
     "name" : "nume_1",
     "team" : {
-      "name" : "ffdfsddsasd",
-      "city" : "dfdf",
-      "league" : "dvvvvddd",
-      "description" : "fdfvsssssssssss",
+      "name" : "echipa_sdasdjklasjdk",
+      "city" : "oras2",
+      "league" : "liga1",
+      "description" : "desc1sadasdasd",
+      "players" : [ ]
+    }
+  }
+}, {
+  "tm3" : {
+    "name" : "nume3",
+    "team" : {
+      "name" : "ech_3",
+      "city" : "dasdasdas",
+      "league" : "scasc",
+      "description" : "cascascascas",
       "players" : [ ]
     }
   }

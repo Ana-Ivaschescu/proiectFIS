@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.PlayerAgent;
 import main.TeamManager;
 import utils.PasswordHasher;
 import utils.PathHolder;
@@ -115,47 +116,76 @@ public class SignInController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.println(tm_list);
+                //System.out.println(tm_list);
 
                 loader.setLocation(getClass().getResource("../fxml/welcome_team_manager.fxml"));
                 int ok = 0;
-                for(HashMap<String, TeamManager> tm : tm_list)
-                    if(tm.containsKey(username)) {
-                        loader.setLocation(getClass().getResource("../fxml/team_manager_main.fxml"));
-                        ok = 1;
-                        break;
-                    }
+                if (tm_list!= null)
+                    for(HashMap<String, TeamManager> tm : tm_list)
+                        if(tm.containsKey(username)) {
+                            loader.setLocation(getClass().getResource("../fxml/team_manager_main.fxml"));
+                            ok = 1;
+                            break;
+                        }
                 Parent root= loader.load();
                 if(ok == 0) {
                     WelcomeTMController controller;
                     controller = loader.getController();
                     controller.initData(username);
-                    Stage stage = (Stage) usernameField.getScene().getWindow();
-                    Scene scene = new Scene(root, 800, 600);
-                    stage.setScene(scene);
                 }
                 else
                 {
                     MainTMController controller;
                     controller= loader.getController();
                     controller.initData(username);
-                    Stage stage = (Stage) usernameField.getScene().getWindow();
-                    Scene scene = new Scene(root, 800, 600);
-                    stage.setScene(scene);
                 }
+                Stage stage = (Stage) usernameField.getScene().getWindow();
+                Scene scene = new Scene(root, 800, 600);
+                stage.setScene(scene);
 
             }
 
             else if(role.equals("player agent"))
             {
-                System.out.println("Sign in as PA");
-                loader.setLocation(getClass().getResource("../fxml/welcome_player_agent.fxml"));
-                Parent welcomePA_root= loader.load();
-                WelcomePAController controller= loader.getController();
-                controller.initData(username);
-                Stage stage = (Stage) usernameField.getScene().getWindow();
-                Scene scene = new Scene(welcomePA_root, 800, 600);
-                stage.setScene(scene);
+                {
+                    System.out.println("Sign in as PA");
+                    //read tm lists
+                    File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
+                    List<HashMap<String, PlayerAgent>> pa_list = null;
+                    try {
+                        pa_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, PlayerAgent>>>(){});
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    //System.out.println(pa_list);
+
+                    loader.setLocation(getClass().getResource("../fxml/welcome_player_agent.fxml"));
+                    int ok = 0;
+                    if(pa_list != null)
+                        for(HashMap<String, PlayerAgent> pa : pa_list)
+                            if(pa.containsKey(username)) {
+                                loader.setLocation(getClass().getResource("../fxml/player_agent_main.fxml"));
+                                ok = 1;
+                                break;
+                            }
+                    Parent root= loader.load();
+                    if(ok == 0) {
+                        WelcomePAController controller;
+                        controller = loader.getController();
+                        controller.initData(username);
+
+                    }
+                    else
+                    {
+                        MainPAController controller;
+                        controller= loader.getController();
+                        controller.initData(username);
+                    }
+                    Stage stage = (Stage) usernameField.getScene().getWindow();
+                    Scene scene = new Scene(root, 800, 600);
+                    stage.setScene(scene);
+
+                }
             }
         }catch(IOException e){
             e.printStackTrace();
