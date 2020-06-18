@@ -2,17 +2,22 @@ package controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import main.PlayerAgent;
 import main.TeamManager;
 import utils.PathHolder;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,8 +32,11 @@ public class MainTMController {
     public Label descriptionLabel;
     @FXML
     public Label usernameLabel;
+    @FXML
+    public ListView<String> paListView = new ListView<>();
     private TeamManager tm;
     private String username;
+    private ArrayList<PlayerAgent> pa_list = new ArrayList<PlayerAgent>();
 
     public void initData(String username)
     {
@@ -53,6 +61,24 @@ public class MainTMController {
         cityLabel.setText(tm.getTeam().getCity());
         leagueLabel.setText(tm.getTeam().getLeague());
         descriptionLabel.setText(tm.getTeam().getDescription());
+
+        f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
+        List<HashMap<String, PlayerAgent>> pa_hash = null;
+        try {
+            pa_hash = objectMapper.readValue(f, new TypeReference<List<HashMap<String, PlayerAgent>>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        PlayerAgent temp_pa;
+        ObservableList<String> pa_name_list = FXCollections.observableArrayList();
+        for (HashMap<String, PlayerAgent> pa : pa_hash)
+        {
+            temp_pa = (PlayerAgent) pa.values().toArray()[0];
+            pa_list.add(temp_pa);
+            pa_name_list.add(temp_pa.getName());
+        }
+        paListView.setItems(pa_name_list);
     }
 
     public void changeTeamDataPushed(){

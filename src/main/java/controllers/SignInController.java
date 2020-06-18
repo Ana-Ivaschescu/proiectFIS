@@ -116,7 +116,7 @@ public class SignInController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.println(tm_list);
+                //System.out.println(tm_list);
 
                 loader.setLocation(getClass().getResource("../fxml/welcome_team_manager.fxml"));
                 int ok = 0;
@@ -157,7 +157,7 @@ public class SignInController {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    System.out.println(pa_list);
+                    //System.out.println(pa_list);
 
                     loader.setLocation(getClass().getResource("../fxml/welcome_player_agent.fxml"));
                     int ok = 0;
