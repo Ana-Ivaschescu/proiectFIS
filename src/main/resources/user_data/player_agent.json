@@ -1,5 +1,21 @@
 [ {
   "pa1" : {
-    "name" : "player_1"
+    "name" : "player_1",
+    "players" : [ {
+      "name" : "player_1",
+      "playing_position" : "center",
+      "description" : "dasdasda",
+      "available" : true
+    }, {
+      "name" : "player_2_nume",
+      "playing_position" : "center",
+      "description" : "dsdds",
+      "available" : true
+    }, {
+      "name" : "player_3",
+      "playing_position" : "wing",
+      "description" : "dasdadadaca",
+      "available" : true
+    } ]
   }
 } ]

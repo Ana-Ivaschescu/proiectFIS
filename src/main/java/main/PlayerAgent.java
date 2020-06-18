@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class PlayerAgent {
     private String name;
+
+
+
     private ArrayList<Player> players = new ArrayList<Player>();
 
 
@@ -24,6 +27,9 @@ public class PlayerAgent {
         this.name = name;
     }
 
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
     //add player
     public void addPlayer(Player player)
     {

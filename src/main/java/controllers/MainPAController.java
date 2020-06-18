@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import main.Player;
 import main.PlayerAgent;
 import main.Team;
 import main.TeamManager;
@@ -28,6 +29,7 @@ public class MainPAController {
 
     private String username;
     private PlayerAgent pa;
+    private List<HashMap<String, PlayerAgent>> pa_list = null;
     private ArrayList<TeamManager> tm_list = new ArrayList<TeamManager>();
     private ObservableList<String> tm_team_list = FXCollections.observableArrayList();
 
@@ -35,6 +37,8 @@ public class MainPAController {
     public Label nameLabel;
     @FXML
     public ListView<String> listView = new ListView<>();
+    @FXML
+    public ListView<String> playerListView = new ListView<>();
 
     public void initData(String username)
     {
@@ -43,7 +47,7 @@ public class MainPAController {
         File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
         //HashMap<String, PlayerAgent> pa_map = new HashMap<>();
         ObjectMapper objectMapper = new ObjectMapper();
-        List<HashMap<String, PlayerAgent>> pa_list = null;
+        //List<HashMap<String, PlayerAgent>> pa_list = null;
         try {
             pa_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, PlayerAgent>>>(){});
         } catch (IOException e) {
@@ -75,6 +79,10 @@ public class MainPAController {
             tm_team_list.add(temp_tm.getName() + "  |  "  + temp_tm.getTeam().getName());
         }
         listView.setItems((tm_team_list));
+        ObservableList<String> player_name_list = FXCollections.observableArrayList();
+        for(Player p : pa.getPlayers())
+            player_name_list.add(p.getName());
+        playerListView.setItems(player_name_list);
     }
 
     @FXML
@@ -108,4 +116,54 @@ public class MainPAController {
         stage.setScene(scene);
         stage.show();
     }
+    public void mouseClickPlayerListView()
+    {
+
+        String player_name = playerListView.getSelectionModel().getSelectedItem();
+
+        Player selected_p = null;
+        for (int i =0; i<pa.getPlayers().size(); i++)
+        {
+            if(pa.getPlayers().get(i).getName().equals(player_name))
+                selected_p = pa.getPlayers().get(i);
+        }
+        System.out.println(selected_p.getName());
+        //make and open popup
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../fxml/edit_player_popup.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        EditPlayerController controller;
+        controller= loader.getController();
+        controller.initData(selected_p, pa_list, username);
+        Stage stage = (Stage) nameLabel.getScene().getWindow();
+        //stage.setTitle("Player data");
+        Scene scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void addPlayerButtonPushed()
+    {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../fxml/pa_add_player.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        AddPlayerController controller;
+        controller= loader.getController();
+        controller.initData(username);
+        Stage stage = (Stage) nameLabel.getScene().getWindow();
+        Scene scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+    }
+
 }

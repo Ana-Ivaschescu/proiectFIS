@@ -4,53 +4,57 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.Player;
 import main.PlayerAgent;
-import main.Team;
-import main.TeamManager;
 import utils.PathHolder;
 
-import javafx.scene.control.TextField;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ResourceBundle;
 
-public class WelcomePAController {
+public class EditPlayerController {
+
+    @FXML
+    public TextField nameField;
+    @FXML
+    public TextField playingPosField;
+    @FXML
+    public TextField descriptionField;
+
+    private Player p;
+    private List<HashMap<String, PlayerAgent>> pa_list;
     private String username;
-
-    @FXML
-    public Label usernameLabel;
-    @FXML
-    public TextField namefield;
-
-
-    public void initData(String username)
+    public  void initData(Player p,  List<HashMap<String, PlayerAgent>> pa_list, String username)
     {
+        if(p!= null) {
+            this.p = p;
+            nameField.setText(p.getName());
+            playingPosField.setText(p.getPlaying_position());
+            descriptionField.setText(p.getDescription());
+        }
         this.username = username;
-        usernameLabel.setText(this.username);
+        this.pa_list = pa_list;
     }
-    public void nextButtonPressed(){
-        PlayerAgent pa = new PlayerAgent(namefield.getText());
+
+    public void saveButtonPushed()
+    {
+
+        String player_name = nameField.getText();
+        String player_pos = playingPosField.getText();
+        String player_desc = descriptionField.getText();
+        p.setName(player_name);
+        p.setPlaying_position(player_pos);
+        p.setDescription(player_desc);
 
         File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
-        HashMap<String,PlayerAgent> pa_map = new HashMap<>();
-        pa_map.put(this.username, pa);
-
+        //HashMap<String, PlayerAgent> pa_map = new HashMap<>();
         ObjectMapper objectMapper = new ObjectMapper();
-        List<HashMap<String, PlayerAgent>> pa_list = null;
-        try {
-            pa_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, PlayerAgent>>>(){});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        pa_list.add(pa_map);
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(f, pa_list);
         } catch (IOException e) {
@@ -68,13 +72,8 @@ public class WelcomePAController {
         MainPAController controller;
         controller= loader.getController();
         controller.initData(username);
-        Stage stage = (Stage) usernameLabel.getScene().getWindow();
+        Stage stage = (Stage) nameField.getScene().getWindow();
         Scene scene = new Scene(root, 800, 600);
         stage.setScene(scene);
-
     }
-
-
 }
-
-

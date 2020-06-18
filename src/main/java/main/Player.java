@@ -8,6 +8,10 @@ public class Player {
         private boolean available = true;
 
         //constructor
+        public Player()
+        {
+            super();
+        }
         public Player(String name, String playing_position, String description) {
             this.name = name;
             this.playing_position = playing_position;
