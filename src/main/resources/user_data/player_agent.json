@@ -4,8 +4,13 @@
     "request_list" : [ {
       "tm_name" : "tm_name_1",
       "pa_name" : "pa_name_1",
-      "p_name" : "player_1",
-      "status" : "accept"
+      "p_name" : "player_2",
+      "status" : "pending"
+    }, {
+      "tm_name" : "tm_name_1",
+      "pa_name" : "pa_name_1",
+      "p_name" : "player_4",
+      "status" : "pending"
     } ],
     "players" : [ {
       "name" : "player_1",
@@ -16,6 +21,11 @@
       "name" : "player_2",
       "playing_position" : "guard",
       "description" : "sdascsa",
+      "available" : true
+    }, {
+      "name" : "player_4",
+      "playing_position" : "guard",
+      "description" : "vcvcx",
       "available" : true
     } ]
   }

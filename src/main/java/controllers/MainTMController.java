@@ -100,8 +100,24 @@ public class MainTMController {
         Scene scene = new Scene(root, 800, 600);
         stage.setScene(scene);
     }
-    public void seeEditButtonPushed(){
+    public void checkPlayersButtonPushed(){
 
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../fxml/tm_check_player_data.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        TMCheckPlayerData controller;
+        controller= loader.getController();
+        controller.initData(tm);
+        Stage stage = new Stage();
+        stage.setTitle("Players");
+        Scene scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+        stage.show();
 
     }
     public void paListClick()

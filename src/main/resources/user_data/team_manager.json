@@ -16,8 +16,13 @@
     "request_list" : [ {
       "tm_name" : "tm_name_1",
       "pa_name" : "pa_name_1",
-      "p_name" : "player_1",
-      "status" : "accept"
+      "p_name" : "player_2",
+      "status" : "pending"
+    }, {
+      "tm_name" : "tm_name_1",
+      "pa_name" : "pa_name_1",
+      "p_name" : "player_4",
+      "status" : "pending"
     } ]
   }
 } ]
