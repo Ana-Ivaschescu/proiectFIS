@@ -1,0 +1,12 @@
+[ {
+  "tm" : {
+    "name" : "nume_1",
+    "team" : {
+      "name" : "ffdfsddsasd",
+      "city" : "dfdf",
+      "league" : "dvvvvddd",
+      "description" : "fdfvsssssssssss",
+      "players" : [ ]
+    }
+  }
+} ]
