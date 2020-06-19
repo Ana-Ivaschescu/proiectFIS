@@ -5,13 +5,18 @@
       "tm_name" : "tm_test_name",
       "pa_name" : "pa_name_test",
       "p_name" : "player_name_1",
-      "status" : "pending"
+      "status" : "accept"
+    }, {
+      "tm_name" : "tm_test_name",
+      "pa_name" : "pa_name_test",
+      "p_name" : "player_name_2",
+      "status" : "deny"
     } ],
     "players" : [ {
       "name" : "player_name_1",
       "playing_position" : "guard",
       "description" : "player_description_1",
-      "available" : true
+      "available" : false
     }, {
       "name" : "player_name_2",
       "playing_position" : "wing",

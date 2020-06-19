@@ -50,29 +50,7 @@ public class CheckPlayerAgentController {
 
         player_list.setItems(player_name_pos_av_list);
     }
-    public PlayerAgent getPa() {
-        return pa;
-    }
 
-    public void setPa(PlayerAgent pa) {
-        this.pa = pa;
-    }
-
-    public TeamManager getTm() {
-        return tm;
-    }
-
-    public void setTm(TeamManager tm) {
-        this.tm = tm;
-    }
-
-    public void setPa_hash_list(List<HashMap<String, PlayerAgent>> pa_hash_list) {
-        this.pa_hash_list = pa_hash_list;
-    }
-
-    public void setTm_hash_list(List<HashMap<String, TeamManager>> tm_hash_list) {
-        this.tm_hash_list = tm_hash_list;
-    }
 
     public void backButtonPressed()
     {

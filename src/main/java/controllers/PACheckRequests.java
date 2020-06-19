@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import main.*;
+import utils.DataManager;
 import utils.PathHolder;
 
 import java.io.File;
@@ -66,13 +67,8 @@ public class PACheckRequests {
         String tm_name= request_list.getSelectionModel().getSelectedItem().split("  |  ")[0];
         String p_name= request_list.getSelectionModel().getSelectedItem().split("  |  ")[2];
         String status_name= request_list.getSelectionModel().getSelectedItem().split("  |  ")[4];
-        for(int i = 0; i<tm_hash_list.size(); i++)
-        {
-            tm = (TeamManager) tm_hash_list.get(i).values().toArray()[0];
-            if(tm.getName().equals(tm_name))
-                break;
-            else tm = null;
-        }
+        tm = DataManager.searchTM(tm_name, tm_hash_list);
+
         for(int i=0; i<pa.getPlayers().size(); i++)
         {
             if(pa.getPlayers().get(i).getName().equals(p_name)) {
