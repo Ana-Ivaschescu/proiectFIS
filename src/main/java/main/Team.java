@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Team {
     private String name;
@@ -78,6 +79,26 @@ public class Team {
             players.add(p);
             p.setAvailable(false);
         }
+    }
+    public HashMap<String, Integer> playerCount()
+    {
+        HashMap<String, Integer> playercount = new HashMap<>();
+        playercount.put("total", 0);
+        playercount.put("guards", 0);
+        playercount.put("wings", 0);
+        playercount.put("centers", 0);
+        for(Player p: this.players)
+        {
+            playercount.put("total", playercount.get("total")+1);
+            if(p.getPlaying_position().equals("guard"))
+                playercount.put("guards", playercount.get("guards")+1);
+            else if(p.getPlaying_position().equals("wing"))
+            playercount.put("wings", playercount.get("wings")+1);
+            else if(p.getPlaying_position().equals("center"))
+            playercount.put("centers", playercount.get("centers")+1);
+        }
+        return playercount;
+
     }
 
 
