@@ -35,9 +35,18 @@ public class ClassesTest extends ApplicationTest {
     }
 
     @Test
-
+    public void TMSendRequestTest()
+    {
+        tm.addRequest(r);
+        assertEquals(1, tm.getRequest_list().size());
+    }
+    @Test
     public void PASolveRequestTest()
     {
+        pa.getRequest_list().add(r);
+        assertEquals(1, pa.getRequest_list().size());
+        pa.solveRequest(r, "accept");
+        assertEquals("accept", r.getStatus());
 
     }
 
