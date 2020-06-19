@@ -100,7 +100,7 @@ public class SignInController {
 
     }
 
-    private void signInSuccessful(String username, String role)
+    public int signInSuccessful(String username, String role)
     {
         System.out.println("Sign in as " + role);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -141,9 +141,14 @@ public class SignInController {
                     controller= loader.getController();
                     controller.initData(username);
                 }
-                Stage stage = (Stage) usernameField.getScene().getWindow();
-                Scene scene = new Scene(root, 800, 600);
-                stage.setScene(scene);
+
+                Stage stage;
+                if(usernameField.getScene() != null) {
+                    stage = (Stage) usernameField.getScene().getWindow();
+                    Scene scene = new Scene(root, 800, 600);
+                    stage.setScene(scene);
+                }
+                else return ok;
 
             }
 
@@ -152,16 +157,16 @@ public class SignInController {
                 {
                     System.out.println("Sign in as PA");
                     loader.setLocation(getClass().getResource("../fxml/welcome_player_agent.fxml"));
-                    int ok = 0;
+                    int ok = 2;
                     if(pa_hash_list != null)
                         for(HashMap<String, PlayerAgent> pa : pa_hash_list)
                             if(pa.containsKey(username)) {
                                 loader.setLocation(getClass().getResource("../fxml/player_agent_main.fxml"));
-                                ok = 1;
+                                ok = 3;
                                 break;
                             }
                     Parent root= loader.load();
-                    if(ok == 0) {
+                    if(ok == 2) {
                         WelcomePAController controller;
                         controller = loader.getController();
                         controller.initData(username);
@@ -173,14 +178,19 @@ public class SignInController {
                         controller= loader.getController();
                         controller.initData(username);
                     }
-                    Stage stage = (Stage) usernameField.getScene().getWindow();
-                    Scene scene = new Scene(root, 800, 600);
-                    stage.setScene(scene);
+                    Stage stage;
+                    if(usernameField.getScene()!= null) {
+                        stage = (Stage) usernameField.getScene().getWindow();
+                        Scene scene = new Scene(root, 800, 600);
+                        stage.setScene(scene);
+                    }
+                    else return ok;
                 }
             }
         }catch(IOException e){
             e.printStackTrace();
         }
+        return -1;
     }
 
 }

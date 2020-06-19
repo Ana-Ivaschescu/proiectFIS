@@ -57,12 +57,24 @@ public class SignUpController {
             e.printStackTrace();
         }
     }
+    public List<HashMap<String, String>> getUsers()
+    {
+        File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/credentials.json")));
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<HashMap<String, String>> credentials_list = null;
+        try {
+            credentials_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, String>>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return credentials_list;
+    }
+
 
     public void signUpButtonPushed() throws UsernameAlreadyExistsException
     {
         System.out.println(PathHolder.getPathToResourceFile("user_data/credentials.json"));
         File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/credentials.json")));
-
         //save credentials in a dict
         HashMap<String, String> credentials = new HashMap<>();
         credentials.put("username", usernameField.getText().toLowerCase());
@@ -78,14 +90,8 @@ public class SignUpController {
         System.out.println(credentials.get("username") + " " + credentials.get("password"));
 
         //read other credentials
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<HashMap<String, String>> credentials_list = null;
-        try {
-            credentials_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, String>>>(){});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
+        List<HashMap<String, String>> credentials_list = getUsers();
         System.out.println(credentials_list.size());
         if(credentials_list.size() != 0)
             for(HashMap<String, String> cred : credentials_list)
@@ -94,14 +100,14 @@ public class SignUpController {
 
         //add credentials
         credentials_list.add(credentials);
-
+        ObjectMapper objectMapper = new ObjectMapper();
         //write new credentials to file
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(f, credentials_list);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        /*
         boolean matched = false;
         try {
             matched = PasswordHasher.validatePassword(passwordField.getText(), credentials.get("password"));
@@ -110,17 +116,19 @@ public class SignUpController {
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();
         }
-
-        System.out.println(matched);
+         */
         try {
-            Stage stage = (Stage) usernameField.getScene().getWindow();
-            Parent sign_up_root = FXMLLoader.load(getClass().getResource("../fxml/welcome.fxml"));
-            Scene scene = new Scene(sign_up_root, 800, 600);
-            stage.setScene(scene);
-            System.out.println("sign in");
+            Stage stage;
+            if(usernameField.getScene() != null) {
+                stage = (Stage) usernameField.getScene().getWindow();
+
+                Parent sign_up_root = FXMLLoader.load(getClass().getResource("../fxml/welcome.fxml"));
+                Scene scene = new Scene(sign_up_root, 800, 600);
+                stage.setScene(scene);
+                System.out.println("sign in");
+            }
         }catch(IOException e){
             e.printStackTrace();
         }
-
     }
 }
