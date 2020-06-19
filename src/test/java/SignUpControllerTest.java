@@ -10,6 +10,10 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.testfx.framework.junit.ApplicationTest;
 import utils.DataManager;
+import utils.PasswordHasher;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -69,6 +73,28 @@ public class SignUpControllerTest extends ApplicationTest {
         controller.signUpButtonPushed();
         assertNotNull(controller.getUsers());
         assertEquals(2,  controller.getUsers().size());
+    }
+
+    @Test
+    public void testPasswordHash()
+    {
+        String password = "";
+        try {
+            password = PasswordHasher.Encrypt(TestDataHolder.TEST_TM_PASSWORD);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
+        boolean matched = false;
+        try {
+            matched = PasswordHasher.validatePassword(TestDataHolder.TEST_TM_PASSWORD, password);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
+        assertEquals(true, matched);
     }
 
 }
