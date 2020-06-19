@@ -4,8 +4,8 @@
     "request_list" : [ ],
     "players" : [ {
       "name" : "player_name_1",
-      "playing_position" : "guard",
-      "description" : "player_description_1",
+      "playing_position" : "wing",
+      "description" : "player_description_1_changed",
       "available" : true
     }, {
       "name" : "player_name_2",
