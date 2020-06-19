@@ -1,10 +1,9 @@
-import main.Player;
-import main.PlayerAgent;
-import main.Request;
-import main.TeamManager;
+import main.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
+
+import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,8 +17,9 @@ public class ClassesTest extends ApplicationTest {
     public void setup()
     {
         tm = new TeamManager("tm_name");
+        tm.setTeam(new Team("team_name", "team_city", "team_league", "team_desc"));
         pa = new PlayerAgent("pa_name");
-        p = new Player("p_name", "pos", "desc");
+        p = new Player("p_name", "guard", "desc");
         r = new Request("tm_name", "pa_name", "p_name");
 
     }
@@ -48,6 +48,19 @@ public class ClassesTest extends ApplicationTest {
         pa.solveRequest(r, "accept");
         assertEquals("accept", r.getStatus());
 
+    }
+    @Test
+    public void TestTeam()
+    {
+        tm.getTeam().addPlayer(p);
+        assertEquals(1, tm.getTeam().getPlayers().size());
+        tm.getTeam().addPlayer(new Player("p_name_2", "center", "desc_2"));
+        tm.getTeam().addPlayer(new Player("p_name_3", "wing", "desc_3"));
+        HashMap<String, Integer> player_count = tm.getTeam().playerCount();
+        assertEquals(new Integer(3), player_count.get("total"));
+        assertEquals(new Integer(1), player_count.get("centers"));
+        assertEquals(new Integer(1), player_count.get("guards"));
+        assertEquals(new Integer(1), player_count.get("wings"));
     }
 
 }
