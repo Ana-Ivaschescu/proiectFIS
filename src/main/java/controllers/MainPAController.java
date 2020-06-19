@@ -45,18 +45,6 @@ public class MainPAController {
     {
         this.username = username;
         //load pa
-        /*
-        File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
-        //HashMap<String, PlayerAgent> pa_map = new HashMap<>();
-        ObjectMapper objectMapper = new ObjectMapper();
-        //List<HashMap<String, PlayerAgent>> pa_list = null;
-        try {
-            pa_hash_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, PlayerAgent>>>(){});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-         */
         pa_hash_list = DataManager.readPA();
         for (HashMap<String, PlayerAgent> stringPlayerAgentHashMapHashMap : pa_hash_list)
             if (stringPlayerAgentHashMapHashMap.containsKey(username)) {
@@ -69,16 +57,6 @@ public class MainPAController {
         nameLabel.setText(pa.getName());
 
         //load tm_list
-        /*
-        f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/team_manager.json")));
-
-        try {
-            tm_hash_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, TeamManager>>>(){});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-         */
         tm_hash_list = DataManager.readTM();
         TeamManager temp_tm;
         for (HashMap<String, TeamManager> stringTeamManagerHashMap : tm_hash_list)
@@ -106,7 +84,6 @@ public class MainPAController {
                 if (manager_name.equals(tm.getName()))
                     selected_tm = tm;
             }
-
             //make and open popup
             if (selected_tm != null) {
                 FXMLLoader loader = new FXMLLoader();

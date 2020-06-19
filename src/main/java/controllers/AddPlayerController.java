@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.Player;
 import main.PlayerAgent;
+import utils.DataManager;
 import utils.PathHolder;
 
 import java.io.File;
@@ -57,24 +58,14 @@ public class AddPlayerController {
         File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
         //HashMap<String, PlayerAgent> pa_map = new HashMap<>();
         ObjectMapper objectMapper = new ObjectMapper();
-        List<HashMap<String, PlayerAgent>> pa_list = null;
-        try {
-            pa_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, PlayerAgent>>>(){});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        for(int i=0; i<pa_list.size(); i++)
-            if(pa_list.get(i).containsKey(username)) {
-                pa_list.get(i).get(username).addPlayer(p);
+        List<HashMap<String, PlayerAgent>> pa_hash_list = DataManager.readPA();
+
+        for(int i=0; i<pa_hash_list.size(); i++)
+            if(pa_hash_list.get(i).containsKey(username)) {
+                pa_hash_list.get(i).get(username).addPlayer(p);
                 break;
             }
-
-        try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(f, pa_list);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        DataManager.savePA(pa_hash_list);
         //change scene back
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/player_agent_main.fxml"));

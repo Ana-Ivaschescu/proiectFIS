@@ -119,4 +119,30 @@ public class DataManager {
         return tm;
     }
 
+    public static void saveTM(List<HashMap<String, TeamManager>> tm_hash_list)
+    {
+        File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/team_manager.json")));
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(f, tm_hash_list);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void savePA(List<HashMap<String, PlayerAgent>> pa_hash_list)
+    {
+        File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(f, pa_hash_list);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void saveAll(List<HashMap<String, TeamManager>> tm_hash_list, List<HashMap<String, PlayerAgent>> pa_hash_list)
+    {
+        saveTM(tm_hash_list);
+        savePA(pa_hash_list);
+    }
+
 }

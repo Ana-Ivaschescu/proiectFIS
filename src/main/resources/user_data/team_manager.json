@@ -9,7 +9,7 @@
       "players" : [ {
         "name" : "player_name_1",
         "playing_position" : "guard",
-        "description" : "player_description_1",
+        "description" : "player_description_changed_twice_1",
         "available" : false
       } ]
     },
