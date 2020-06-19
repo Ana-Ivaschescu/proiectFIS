@@ -81,14 +81,23 @@ public class CheckPlayerAgentController {
                 p = temp_p;
                 break;
             }
+        boolean already_req = false;
         if (player_name !=null && p!= null)
-            if(p.isAvailable())
-                {
-                    Request r = new Request(tm.getName(),pa.getName(),p.getName());
+            if(p.isAvailable()) {
+                for (Request req : tm.getRequest_list())
+                    if (req.getP_name().equals(player_name)) {
+                        requestSentLabel.setText(player_name + " already requested!");
+                        already_req = true;
+                        break;
+
+                    }
+                if (!already_req) {
+                    Request r = new Request(tm.getName(), pa.getName(), p.getName());
                     tm.getRequest_list().add(r);
                     pa.getRequest_list().add(r);
-                    requestSentLabel.setText("Request sent for player: " +player_name);
+                    requestSentLabel.setText("Request sent for player: " + player_name);
                 }
+            }
             else
                 requestSentLabel.setText(player_name + " is not available!");
 
