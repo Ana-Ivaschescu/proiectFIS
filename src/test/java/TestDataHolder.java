@@ -32,6 +32,15 @@ public class TestDataHolder {
     public static final String TEST_P_DESC = "player_description_1";
     public static final boolean TEST_P_AV = true;
 
+    public static final String TEST_P_POS_CHANGED = "wing";
+    public static final String TEST_P_DESC_CHANGED = "player_description_1_changed";
+
+    public static final String TEST_P_NAME_NEW = "new_player_name_1";
+    public static final String TEST_P_POS_NEW = "center";
+    public static final String TEST_P_DESC_NEW = "new_player_description_1";
+
+
+
 
     public static final String TEST_FAIL_PASSWORD = "this is not a password";
     public static final String TEST_NO_USERNAME = "this username does not exist";

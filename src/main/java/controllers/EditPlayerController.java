@@ -81,19 +81,23 @@ public class EditPlayerController {
                 }
         }
         DataManager.saveTM(tm_hash_list);
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../fxml/player_agent_main.fxml"));
-        Parent root= null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        Stage stage;
+        if(playingPosField.getScene() != null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../fxml/player_agent_main.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            MainPAController controller;
+            controller = loader.getController();
+            controller.initData(username);
+            stage = (Stage) playingPosField.getScene().getWindow();
+            Scene scene = new Scene(root, 800, 600);
+            stage.setScene(scene);
         }
-        MainPAController controller;
-        controller= loader.getController();
-        controller.initData(username);
-        Stage stage = (Stage) playingPosField.getScene().getWindow();
-        Scene scene = new Scene(root, 800, 600);
-        stage.setScene(scene);
     }
 }

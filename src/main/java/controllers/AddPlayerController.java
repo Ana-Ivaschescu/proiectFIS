@@ -54,10 +54,6 @@ public class AddPlayerController {
         String player_desc = playerDescriptionField.getText();
 
         Player p = new Player(player_name, player_pos, player_desc);
-
-        File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
-        //HashMap<String, PlayerAgent> pa_map = new HashMap<>();
-        ObjectMapper objectMapper = new ObjectMapper();
         List<HashMap<String, PlayerAgent>> pa_hash_list = DataManager.readPA();
 
         for(int i=0; i<pa_hash_list.size(); i++)
@@ -66,21 +62,25 @@ public class AddPlayerController {
                 break;
             }
         DataManager.savePA(pa_hash_list);
+
         //change scene back
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../fxml/player_agent_main.fxml"));
-        Parent root= null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+        Stage stage;
+        if(playerNameField.getScene() != null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../fxml/player_agent_main.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            MainPAController controller;
+            controller = loader.getController();
+            controller.initData(username);
+            stage = (Stage) playerNameField.getScene().getWindow();
+            Scene scene = new Scene(root, 800, 600);
+            stage.setScene(scene);
         }
-        MainPAController controller;
-        controller= loader.getController();
-        controller.initData(username);
-        Stage stage = (Stage) playerNameField.getScene().getWindow();
-        Scene scene = new Scene(root, 800, 600);
-        stage.setScene(scene);
     }
 
 
