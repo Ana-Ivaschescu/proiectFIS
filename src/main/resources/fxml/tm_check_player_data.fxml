@@ -4,7 +4,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TMCheckPlayerData">
    <children>
@@ -13,6 +13,46 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <ListView fx:id="player_list" layoutY="75.0" prefHeight="320.0" prefWidth="600.0" />
+      <ListView fx:id="player_list" layoutY="75.0" prefHeight="320.0" prefWidth="337.0" />
+      <Text layoutX="351.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. Players: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="351.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. Guards">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="351.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. Wings">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="351.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No. Centers">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Label fx:id="noPlayersLabel" layoutX="472.0" layoutY="68.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="noGuardsLabel" layoutX="472.0" layoutY="125.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="noWingsLabel" layoutX="472.0" layoutY="176.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="noCentersLabel" layoutX="472.0" layoutY="228.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

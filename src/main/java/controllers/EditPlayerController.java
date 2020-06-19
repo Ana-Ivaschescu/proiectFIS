@@ -2,10 +2,13 @@ package controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -20,22 +23,31 @@ import java.util.List;
 
 public class EditPlayerController {
 
+    ObservableList<String> positionList = FXCollections.observableArrayList("guard", "wing", "center");
     @FXML
     public Label nameLabel;
     @FXML
-    public TextField playingPosField;
+    public ChoiceBox<String> playingPosField;
     @FXML
     public TextField descriptionField;
 
     private Player p;
     private List<HashMap<String, PlayerAgent>> pa_list;
     private String username;
+
+    @FXML
+    private void initialize()
+    {
+        //playingPosField.setValue("guard");
+        playingPosField.setItems(positionList);
+
+    }
     public  void initData(Player p,  List<HashMap<String, PlayerAgent>> pa_list, String username)
     {
         if(p!= null) {
             this.p = p;
             nameLabel.setText(p.getName());
-            playingPosField.setText(p.getPlaying_position());
+            playingPosField.setValue(p.getPlaying_position());
             descriptionField.setText(p.getDescription());
         }
         this.username = username;
@@ -45,7 +57,7 @@ public class EditPlayerController {
     public void saveButtonPushed()
     {
 
-        String player_pos = playingPosField.getText();
+        String player_pos = String.valueOf(playingPosField.getValue());
         String player_desc = descriptionField.getText();
         p.setPlaying_position(player_pos);
         p.setDescription(player_desc);

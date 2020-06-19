@@ -32,5 +32,6 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Button layoutX="213.0" layoutY="334.0" mnemonicParsing="false" onAction="#checkPlayerDataButtonPressed" text="Check Player Data" />
    </children>
 </AnchorPane>

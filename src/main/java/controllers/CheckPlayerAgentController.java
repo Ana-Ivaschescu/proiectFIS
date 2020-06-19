@@ -69,6 +69,38 @@ public class CheckPlayerAgentController {
         stage.setScene(scene);
         stage.show();
     }
+    public void checkPlayerDataButtonPressed()
+    {
+        String player_name = player_list.getSelectionModel().getSelectedItem().split("  |  ")[0];
+
+        System.out.println(player_name);
+        Player p = null;
+        for(Player temp_p : pa.getPlayers())
+            if(player_name.equals(temp_p.getName()))
+            {
+                p = temp_p;
+                break;
+            }
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../fxml/tm_check_req_player_data.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        TMCheckReqPlayerData controller;
+        controller= loader.getController();
+        controller.initData(p);
+        Stage stage = new Stage();
+        //stage.setTitle("Player data");
+        Scene scene = new Scene(root, 500, 300);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
     public void requestButtonPressed()
     {
         String player_name = player_list.getSelectionModel().getSelectedItem().split("  |  ")[0];

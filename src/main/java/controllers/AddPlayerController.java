@@ -2,10 +2,13 @@ package controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.Player;
@@ -18,15 +21,25 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AddPlayerController {
+
+    ObservableList<String> positionList = FXCollections.observableArrayList("guard", "wing", "center");
     @FXML
     public TextField playerNameField;
     @FXML
-    public TextField playerPositionField;
+    public ChoiceBox<String> positionBox;
     @FXML
     public TextField playerDescriptionField;
 
     private String username;
     private PlayerAgent pa;
+
+    @FXML
+    private void initialize()
+    {
+        positionBox.setValue("guard");
+        positionBox.setItems(positionList);
+
+    }
 
     public void initData(String username)
     {
@@ -36,7 +49,7 @@ public class AddPlayerController {
     public void saveButtonPushed()
     {
         String player_name = playerNameField.getText();
-        String player_pos = playerPositionField.getText();
+        String player_pos = String.valueOf(positionBox.getValue());
         String player_desc = playerDescriptionField.getText();
 
         Player p = new Player(player_name, player_pos, player_desc);

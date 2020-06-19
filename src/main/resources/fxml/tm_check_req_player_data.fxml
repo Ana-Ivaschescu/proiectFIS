@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="232.0" prefWidth="219.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TMCheckReqPlayerData">
+   <children>
+      <Text layoutX="88.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="83.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Playing position">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="80.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="83.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Availability">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Label fx:id="nameLabel" layoutX="230.0" layoutY="45.0" prefHeight="27.0" prefWidth="166.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="posLabel" layoutX="230.0" layoutY="95.0" prefHeight="27.0" prefWidth="193.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="avLabel" layoutX="232.0" layoutY="154.0" prefHeight="27.0" prefWidth="208.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="descLabel" alignment="TOP_LEFT" layoutX="230.0" layoutY="200.0" prefHeight="81.0" prefWidth="166.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
