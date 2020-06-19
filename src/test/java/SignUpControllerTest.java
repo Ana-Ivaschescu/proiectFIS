@@ -1,63 +1,74 @@
 import controllers.SignUpController;
 import exceptions.UsernameAlreadyExistsException;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.testfx.framework.junit.ApplicationTest;
 import utils.DataManager;
-import utils.PathHolder;
-
-
-import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SignUpControllerTest extends ApplicationTest {
-    public static final String TEST_USERNAME = "UsernameTest";
-    public static final String TEST_PASSWORD = "passwordTest";
-    private SignUpController controller;
-    private DataManager data_manager;
 
+    private SignUpController controller;
+
+
+    @BeforeClass
+    public static void setupClass()
+    {
+        DataManager.clearAllData();
+    }
     @Before
     public void setup()
     {
-        data_manager = new DataManager();
-        data_manager.clearAllData();
         controller = new SignUpController();
         controller.usernameField = new TextField();
         controller.passwordField = new PasswordField();
         controller.rolebox = new ChoiceBox<>();
-
     }
 
     @Test
-    public void signUpTest() throws Exception
+    public void asignUpTestTM() throws Exception
     {
-        controller.usernameField.setText(TEST_USERNAME);
-        controller.passwordField.setText(TEST_PASSWORD);
+        controller.usernameField.setText(TestDataHolder.TEST_TM_USERNAME);
+        controller.passwordField.setText(TestDataHolder.TEST_TM_PASSWORD);
+        controller.rolebox.setValue(TestDataHolder.TEST_TM_ROLE);
         controller.signUpButtonPushed();
         assertNotNull(controller.getUsers());
         assertEquals(1, controller.getUsers().size());
     }
 
     @Test (expected = UsernameAlreadyExistsException.class)
-    public void signUpDuplicateTest() throws Exception
+    public void csignUpDuplicateTest() throws Exception
     {
-        controller.usernameField.setText(TEST_USERNAME);
-        controller.passwordField.setText(TEST_PASSWORD);
+        controller.usernameField.setText(TestDataHolder.TEST_TM_USERNAME);
+        controller.passwordField.setText(TestDataHolder.TEST_TM_PASSWORD);
+        controller.rolebox.setValue(TestDataHolder.TEST_TM_ROLE);
         controller.signUpButtonPushed();
-        controller.usernameField.setText(TEST_USERNAME);
-        controller.passwordField.setText(TEST_PASSWORD);
+        controller.usernameField.setText(TestDataHolder.TEST_TM_USERNAME);
+        controller.passwordField.setText(TestDataHolder.TEST_TM_PASSWORD);
+        controller.rolebox.setValue(TestDataHolder.TEST_TM_ROLE);
         controller.signUpButtonPushed();
         assertNotNull(controller.getUsers());
         assertEquals(1, controller.getUsers().size());
+    }
+
+    @Test
+    public void bsignUpTestPA() throws Exception
+    {
+        controller.usernameField.setText(TestDataHolder.TEST_PA_USERNAME);
+        controller.passwordField.setText(TestDataHolder.TEST_PA_PASSWORD);
+        controller.rolebox.setValue(TestDataHolder.TEST_PA_ROLE);
+        controller.signUpButtonPushed();
+        assertNotNull(controller.getUsers());
+        assertEquals(2,  controller.getUsers().size());
     }
 
 }

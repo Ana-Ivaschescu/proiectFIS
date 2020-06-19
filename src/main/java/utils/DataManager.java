@@ -6,17 +6,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class DataManager {
-    private String credentials_path = String.valueOf(PathHolder.getPathToResourceFile("user_data/credentials.json"));
-    private String tm_path = String.valueOf(PathHolder.getPathToResourceFile("user_data/team_manager.json"));
-    private String pa_path = String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json"));
+    private static String credentials_path = String.valueOf(PathHolder.getPathToResourceFile("user_data/credentials.json"));
+    private static String tm_path = String.valueOf(PathHolder.getPathToResourceFile("user_data/team_manager.json"));
+    private static String pa_path = String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json"));
 
-    public void clearAllData()
+    public static void clearAllData()
     {
         clearCredData();
         clearTMData();
         clearPAData();
     }
-    public void clearCredData()
+    public static void clearCredData()
     {
         File f = new File(credentials_path);
         PrintWriter writer = null;
@@ -28,7 +28,7 @@ public class DataManager {
         writer.print("[]");
         writer.close();
     }
-    public void clearTMData()
+    public static void clearTMData()
     {
         File f = new File(tm_path);
         PrintWriter writer = null;
@@ -41,7 +41,7 @@ public class DataManager {
         writer.close();
 
     }
-    public void clearPAData()
+    public static void clearPAData()
     {
         File f = new File(pa_path);
         PrintWriter writer = null;
