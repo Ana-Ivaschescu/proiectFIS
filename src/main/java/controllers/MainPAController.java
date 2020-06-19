@@ -89,32 +89,35 @@ public class MainPAController {
     public void mouseClickListView()
     {
         String manager_and_team_name = listView.getSelectionModel().getSelectedItem();
-        String manager_name = manager_and_team_name.split("  |  ")[0];
-        System.out.println(manager_name);
-        TeamManager selected_tm = null;
-        for (TeamManager tm : tm_list)
-        {
-            if(manager_name.equals(tm.getName()))
-                selected_tm = tm;
-        }
+        if(manager_and_team_name!=null) {
+            String manager_name = manager_and_team_name.split("  |  ")[0];
+            //System.out.println(manager_name);
+            TeamManager selected_tm = null;
+            for (TeamManager tm : tm_list) {
+                if (manager_name.equals(tm.getName()))
+                    selected_tm = tm;
+            }
 
-        //make and open popup
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../fxml/team_data_popup.fxml"));
-        Parent root= null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+            //make and open popup
+            if (selected_tm != null) {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("../fxml/team_data_popup.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                TeamDataPopupController controller;
+                controller = loader.getController();
+                controller.initData(selected_tm);
+                Stage stage = new Stage();
+                stage.setTitle("Team data");
+                Scene scene = new Scene(root, 800, 600);
+                stage.setScene(scene);
+                stage.show();
+            }
         }
-        TeamDataPopupController controller;
-        controller= loader.getController();
-        controller.initData(selected_tm);
-        Stage stage = new Stage();
-        stage.setTitle("Team data");
-        Scene scene = new Scene(root, 800, 600);
-        stage.setScene(scene);
-        stage.show();
     }
     public void mouseClickPlayerListView()
     {
@@ -127,24 +130,26 @@ public class MainPAController {
             if(pa.getPlayers().get(i).getName().equals(player_name))
                 selected_p = pa.getPlayers().get(i);
         }
-        System.out.println(selected_p.getName());
+        //System.out.println(selected_p.getName());
         //make and open popup
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../fxml/edit_player_popup.fxml"));
-        Parent root= null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(selected_p!=null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../fxml/edit_player_popup.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            EditPlayerController controller;
+            controller = loader.getController();
+            controller.initData(selected_p, pa_hash_list, username);
+            Stage stage = (Stage) nameLabel.getScene().getWindow();
+            //stage.setTitle("Player data");
+            Scene scene = new Scene(root, 800, 600);
+            stage.setScene(scene);
+            stage.show();
         }
-        EditPlayerController controller;
-        controller= loader.getController();
-        controller.initData(selected_p, pa_hash_list, username);
-        Stage stage = (Stage) nameLabel.getScene().getWindow();
-        //stage.setTitle("Player data");
-        Scene scene = new Scene(root, 800, 600);
-        stage.setScene(scene);
-        stage.show();
     }
 
     @FXML

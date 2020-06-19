@@ -127,23 +127,24 @@ public class MainTMController {
         for(int i=0; i<pa_list.size(); i++) // get player agent by name
             if(pa_list.get(i).getName().equals(pa_name))
                 selected_pa = pa_list.get(i);
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../fxml/check_player_agent.fxml"));
-        Parent root= null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(selected_pa!=null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../fxml/check_player_agent.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            CheckPlayerAgentController controller;
+            controller = loader.getController();
+            controller.initData(selected_pa, tm, username, pa_hash, tm_hash);
+            Stage stage = (Stage) teamNameLabel.getScene().getWindow();
+            //stage.setTitle("Player data");
+            Scene scene = new Scene(root, 800, 600);
+            stage.setScene(scene);
+            stage.show();
         }
-        CheckPlayerAgentController controller;
-        controller= loader.getController();
-        controller.initData(selected_pa, tm, username, pa_hash, tm_hash);
-        Stage stage = (Stage) teamNameLabel.getScene().getWindow();
-        //stage.setTitle("Player data");
-        Scene scene = new Scene(root, 800, 600);
-        stage.setScene(scene);
-        stage.show();
     }
 }
 

@@ -3,7 +3,7 @@
     "name" : "tm_name_1",
     "team" : {
       "name" : "team_1",
-      "city" : "",
+      "city" : "Timisoara",
       "league" : "",
       "description" : "",
       "players" : [ {
