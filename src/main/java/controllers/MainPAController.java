@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import main.Player;
 import main.PlayerAgent;
 import main.TeamManager;
+import utils.DataManager;
 import utils.PathHolder;
 
 import java.io.File;
@@ -44,6 +45,7 @@ public class MainPAController {
     {
         this.username = username;
         //load pa
+        /*
         File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
         //HashMap<String, PlayerAgent> pa_map = new HashMap<>();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -53,6 +55,9 @@ public class MainPAController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+         */
+        pa_hash_list = DataManager.readPA();
         for (HashMap<String, PlayerAgent> stringPlayerAgentHashMapHashMap : pa_hash_list)
             if (stringPlayerAgentHashMapHashMap.containsKey(username)) {
                 System.out.println(stringPlayerAgentHashMapHashMap.get(username));
@@ -64,6 +69,7 @@ public class MainPAController {
         nameLabel.setText(pa.getName());
 
         //load tm_list
+        /*
         f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/team_manager.json")));
 
         try {
@@ -71,6 +77,9 @@ public class MainPAController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+         */
+        tm_hash_list = DataManager.readTM();
         TeamManager temp_tm;
         for (HashMap<String, TeamManager> stringTeamManagerHashMap : tm_hash_list)
         {

@@ -4,10 +4,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.testfx.framework.junit.ApplicationTest;
 import utils.DataManager;
@@ -19,12 +16,16 @@ public class SignInControllerTest extends ApplicationTest {
 
     private SignInController controller;
 
+    @BeforeClass
+    public static void prepSetup()
+    {
+        DataManager.clearTMData();
+        DataManager.clearPAData();
+    }
 
     @Before
     public void setup()
     {
-        DataManager.clearTMData();
-        DataManager.clearPAData();
         controller = new SignInController();
         controller.usernameField = new TextField();
         controller.passwordField = new PasswordField();

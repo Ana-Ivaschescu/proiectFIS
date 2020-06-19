@@ -32,16 +32,16 @@ public class CheckPlayerAgentController {
 
     private  String username;
     private PlayerAgent pa;
-    private List<HashMap<String, PlayerAgent>> pa_hash;
-    private List<HashMap<String, TeamManager>> tm_hash;
+    private List<HashMap<String, PlayerAgent>> pa_hash_list;
+    private List<HashMap<String, TeamManager>> tm_hash_list;
     private TeamManager tm;
     public void initData(PlayerAgent pa, TeamManager tm, String username, List<HashMap<String, PlayerAgent>> pa_hash, List<HashMap<String, TeamManager>> tm_hash)
     {
         this.username = username;
         this.pa = pa;
         this.tm = tm;
-        this.pa_hash = pa_hash;
-        this.tm_hash = tm_hash;
+        this.pa_hash_list = pa_hash;
+        this.tm_hash_list = tm_hash;
         paNameLabel.setText(pa.getName());
         requestSentLabel.setText("");
         ObservableList<String> player_name_pos_av_list = FXCollections.observableArrayList();
@@ -50,6 +50,30 @@ public class CheckPlayerAgentController {
 
         player_list.setItems(player_name_pos_av_list);
     }
+    public PlayerAgent getPa() {
+        return pa;
+    }
+
+    public void setPa(PlayerAgent pa) {
+        this.pa = pa;
+    }
+
+    public TeamManager getTm() {
+        return tm;
+    }
+
+    public void setTm(TeamManager tm) {
+        this.tm = tm;
+    }
+
+    public void setPa_hash_list(List<HashMap<String, PlayerAgent>> pa_hash_list) {
+        this.pa_hash_list = pa_hash_list;
+    }
+
+    public void setTm_hash_list(List<HashMap<String, TeamManager>> tm_hash_list) {
+        this.tm_hash_list = tm_hash_list;
+    }
+
     public void backButtonPressed()
     {
         FXMLLoader loader = new FXMLLoader();
@@ -137,13 +161,13 @@ public class CheckPlayerAgentController {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(f, pa_hash);
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(f, pa_hash_list);
         } catch (IOException e) {
             e.printStackTrace();
         }
         f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/team_manager.json")));
         try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(f, tm_hash);
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(f, tm_hash_list);
         } catch (IOException e) {
             e.printStackTrace();
         }

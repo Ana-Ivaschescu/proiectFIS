@@ -1,8 +1,15 @@
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import main.PlayerAgent;
+import main.TeamManager;
 import utils.PathHolder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
 
 public class TestDataHolder {
     private static String credentials_path = String.valueOf(PathHolder.getPathToResourceFile("user_data/credentials.json"));
@@ -12,10 +19,19 @@ public class TestDataHolder {
     public static final String TEST_TM_USERNAME = "tmtest";
     public static final String TEST_TM_PASSWORD = "tmtest";
     public static final String TEST_TM_ROLE = "team manager";
+    public static final String TEST_TM_NAME = "tm_test_name";
+
 
     public static final String TEST_PA_USERNAME = "patest";
     public static final String TEST_PA_PASSWORD = "patest";
     public static final String TEST_PA_ROLE = "player agent";
+    public static final String TEST_PA_NAME = "pa_name_test";
+
+    public static final String TEST_P_NAME = "player_name_1";
+    public static final String TEST_P_POS = "guard";
+    public static final String TEST_P_DESC = "player_description_1";
+    public static final boolean TEST_P_AV = true;
+
 
     public static final String TEST_FAIL_PASSWORD = "this is not a password";
     public static final String TEST_NO_USERNAME = "this username does not exist";
