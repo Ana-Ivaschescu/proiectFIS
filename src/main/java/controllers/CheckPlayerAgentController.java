@@ -16,10 +16,13 @@ import main.Player;
 import main.PlayerAgent;
 import main.Request;
 import main.TeamManager;
+import utils.DataManager;
 import utils.PathHolder;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,7 +61,11 @@ public class CheckPlayerAgentController {
     public void backButtonPressed()
     {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../fxml/team_manager_main.fxml"));
+        try {
+            loader.setLocation(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/team_manager_main.fxml")));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         Parent root= null;
         try {
             root = loader.load();
@@ -90,7 +97,11 @@ public class CheckPlayerAgentController {
             }
         if(p!= null) {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../fxml/tm_check_req_player_data.fxml"));
+            try {
+                loader.setLocation(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/tm_check_req_player_data.fxml")));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
             Parent root = null;
             try {
                 root = loader.load();
@@ -141,21 +152,8 @@ public class CheckPlayerAgentController {
             }
             else
                 requestSentLabel.setText(player_name + " is not available!");
+        DataManager.saveAll(tm_hash_list, pa_hash_list);
 
-        File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(f, pa_hash_list);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/team_manager.json")));
-        try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(f, tm_hash_list);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void updateList(String pos)

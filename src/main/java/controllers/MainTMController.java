@@ -18,6 +18,8 @@ import utils.PathHolder;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,7 +74,11 @@ public class MainTMController {
     public void changeTeamDataPushed(){
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../fxml/change_team_data.fxml"));
+        try {
+            loader.setLocation(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/change_team_data.fxml")));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         Parent root= null;
         try {
             root = loader.load();
@@ -89,7 +95,11 @@ public class MainTMController {
     public void checkPlayersButtonPushed(){
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../fxml/tm_check_player_data.fxml"));
+        try {
+            loader.setLocation(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/tm_check_player_data.fxml")));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         Parent root= null;
         try {
             root = loader.load();
@@ -115,7 +125,11 @@ public class MainTMController {
                 selected_pa = pa_list.get(i);
         if(selected_pa!=null) {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../fxml/check_player_agent.fxml"));
+            try {
+                loader.setLocation(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/check_player_agent.fxml")));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
             Parent root = null;
             try {
                 root = loader.load();
@@ -136,7 +150,7 @@ public class MainTMController {
     {
         try {
             Stage stage = (Stage) teamNameLabel.getScene().getWindow();
-            Parent sign_up_root = FXMLLoader.load(getClass().getResource("../fxml/welcome.fxml"));
+            Parent sign_up_root = FXMLLoader.load(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/welcome.fxml")));
             Scene scene = new Scene(sign_up_root, 800, 600);
             stage.setScene(scene);
         }catch(IOException e){

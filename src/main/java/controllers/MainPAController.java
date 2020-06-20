@@ -20,6 +20,8 @@ import utils.PathHolder;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -87,7 +89,11 @@ public class MainPAController {
             //make and open popup
             if (selected_tm != null) {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("../fxml/team_data_popup.fxml"));
+                try {
+                    loader.setLocation(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/team_data_popup.fxml")));
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
                 Parent root = null;
                 try {
                     root = loader.load();
@@ -120,7 +126,11 @@ public class MainPAController {
         //make and open popup
         if(selected_p!=null) {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../fxml/edit_player_popup.fxml"));
+            try {
+                loader.setLocation(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/edit_player_popup.fxml")));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
             Parent root = null;
             try {
                 root = loader.load();
@@ -142,7 +152,11 @@ public class MainPAController {
     public void addPlayerButtonPushed()
     {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../fxml/pa_add_player.fxml"));
+        try {
+            loader.setLocation(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/pa_add_player.fxml")));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         Parent root= null;
         try {
             root = loader.load();
@@ -160,7 +174,11 @@ public class MainPAController {
     public void seeRequestsButtonPushed()
     {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../fxml/pa_check_requests.fxml"));
+        try {
+            loader.setLocation(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/pa_check_requests.fxml")));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         Parent root= null;
         try {
             root = loader.load();
@@ -178,7 +196,7 @@ public class MainPAController {
     {
         try {
             Stage stage = (Stage) nameLabel.getScene().getWindow();
-            Parent sign_up_root = FXMLLoader.load(getClass().getResource("../fxml/welcome.fxml"));
+            Parent sign_up_root = FXMLLoader.load(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/welcome.fxml")));
             Scene scene = new Scene(sign_up_root, 800, 600);
             stage.setScene(scene);
         }catch(IOException e){

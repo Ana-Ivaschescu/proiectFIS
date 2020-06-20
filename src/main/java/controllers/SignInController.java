@@ -19,6 +19,7 @@ import utils.PathHolder;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
@@ -45,7 +46,7 @@ public class SignInController {
     {
         try {
             Stage stage = (Stage) usernameField.getScene().getWindow();
-            Parent sign_up_root = FXMLLoader.load(getClass().getResource("../fxml/welcome.fxml"));
+            Parent sign_up_root = FXMLLoader.load(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/welcome.fxml")));
             Scene scene = new Scene(sign_up_root, 800, 600);
             stage.setScene(scene);
             System.out.println("pressed back");
@@ -108,12 +109,12 @@ public class SignInController {
             FXMLLoader loader = new FXMLLoader();
             if(role.equals("team manager"))
             {
-                loader.setLocation(getClass().getResource("../fxml/welcome_team_manager.fxml"));
+                loader.setLocation(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/welcome_team_manager.fxml")));
                 int ok = 0;
                 if (tm_hash_list!= null)
                     for(HashMap<String, TeamManager> tm : tm_hash_list)
                         if(tm.containsKey(username)) {
-                            loader.setLocation(getClass().getResource("../fxml/team_manager_main.fxml"));
+                            loader.setLocation(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/team_manager_main.fxml")));
                             ok = 1;
                             break;
                         }
@@ -144,12 +145,12 @@ public class SignInController {
             {
                 {
                     System.out.println("Sign in as PA");
-                    loader.setLocation(getClass().getResource("../fxml/welcome_player_agent.fxml"));
+                    loader.setLocation(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/welcome_player_agent.fxml")));
                     int ok = 2;
                     if(pa_hash_list != null)
                         for(HashMap<String, PlayerAgent> pa : pa_hash_list)
                             if(pa.containsKey(username)) {
-                                loader.setLocation(getClass().getResource("../fxml/player_agent_main.fxml"));
+                                loader.setLocation(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/player_agent_main.fxml")));
                                 ok = 3;
                                 break;
                             }
