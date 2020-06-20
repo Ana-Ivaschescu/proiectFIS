@@ -64,57 +64,42 @@ public class PACheckRequests {
 
     private void getRequestData()
     {
-        String tm_name= request_list.getSelectionModel().getSelectedItem().split("  |  ")[0];
-        String p_name= request_list.getSelectionModel().getSelectedItem().split("  |  ")[2];
-        String status_name= request_list.getSelectionModel().getSelectedItem().split("  |  ")[4];
-        tm = DataManager.searchTM(tm_name, tm_hash_list);
 
-        for(int i=0; i<pa.getPlayers().size(); i++)
-        {
-            if(pa.getPlayers().get(i).getName().equals(p_name)) {
-                p = pa.getPlayers().get(i);
-                break;
-            }
-        }
-        for(int i=0; i<pa.getRequest_list().size(); i++)
-        {
-            if(pa.getRequest_list().get(i).getTm_name().equals(tm_name) &&
-                    pa.getRequest_list().get(i).getP_name().equals(p_name)&&
-                    pa.getRequest_list().get(i).getPa_name().equals(pa.getName()))
-            {
-                r_pa =pa.getRequest_list().get(i);
-                break;
-            }
-        }
-        for(int i=0; i<tm.getRequest_list().size(); i++)
-        {
-            if(tm.getRequest_list().get(i).getTm_name().equals(tm_name) &&
-                    tm.getRequest_list().get(i).getP_name().equals(p_name)&&
-                    tm.getRequest_list().get(i).getPa_name().equals(pa.getName()))
-            {
-                r_tm =tm.getRequest_list().get(i);
-                break;
-            }
-        }
+        if(request_list.getItems().size()!=0) {
+            String tm_name = request_list.getSelectionModel().getSelectedItem().split("  |  ")[0];
+            String p_name = request_list.getSelectionModel().getSelectedItem().split("  |  ")[2];
+            String status_name = request_list.getSelectionModel().getSelectedItem().split("  |  ")[4];
+            tm = DataManager.searchTM(tm_name, tm_hash_list);
 
+            for (int i = 0; i < pa.getPlayers().size(); i++) {
+                if (pa.getPlayers().get(i).getName().equals(p_name)) {
+                    p = pa.getPlayers().get(i);
+                    break;
+                }
+            }
+            for (int i = 0; i < pa.getRequest_list().size(); i++) {
+                if (pa.getRequest_list().get(i).getTm_name().equals(tm_name) &&
+                        pa.getRequest_list().get(i).getP_name().equals(p_name) &&
+                        pa.getRequest_list().get(i).getPa_name().equals(pa.getName())) {
+                    r_pa = pa.getRequest_list().get(i);
+                    break;
+                }
+            }
+            for (int i = 0; i < tm.getRequest_list().size(); i++) {
+                if (tm.getRequest_list().get(i).getTm_name().equals(tm_name) &&
+                        tm.getRequest_list().get(i).getP_name().equals(p_name) &&
+                        tm.getRequest_list().get(i).getPa_name().equals(pa.getName())) {
+                    r_tm = tm.getRequest_list().get(i);
+                    break;
+                }
+            }
+        }
     }
 
     private void saveData()
     {
-        File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(f, pa_hash_list);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/team_manager.json")));
-        try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(f, tm_hash_list);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        DataManager.savePA(pa_hash_list);
+        DataManager.saveTM(tm_hash_list);
     }
     private void updateList()
     {
@@ -129,26 +114,28 @@ public class PACheckRequests {
     public void acceptButtonPressed()
     {
         this.getRequestData();
-        if(r_pa.getStatus().equals("pending"))
-        {
-            r_pa.setStatus("accept");
-            r_tm.setStatus("accept");
-            p.setAvailable(false);
-            tm.getTeam().addPlayer(p);
-            saveData();
-            updateList();
+        if(request_list.getItems().size()!=0) {
+            if (r_pa.getStatus().equals("pending")) {
+                r_pa.setStatus("accept");
+                r_tm.setStatus("accept");
+                p.setAvailable(false);
+                tm.getTeam().addPlayer(p);
+                saveData();
+                updateList();
+            }
         }
 
     }
-    public void denyButtonPressed()
-    {
+    public void denyButtonPressed() {
         this.getRequestData();
-        if(r_pa.getStatus().equals("pending")) {
-            r_pa.setStatus("deny");
-            r_tm.setStatus("deny");
-            updateList();
+        if (request_list.getItems().size() != 0) {
+            if (r_pa.getStatus().equals("pending")) {
+                r_pa.setStatus("deny");
+                r_tm.setStatus("deny");
+                updateList();
+            }
+            saveData();
         }
-        saveData();
     }
 
 }

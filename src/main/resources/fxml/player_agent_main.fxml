@@ -33,5 +33,10 @@
          </font>
       </Text>
       <ListView fx:id="playerListView" layoutX="236.0" layoutY="106.0" onMouseReleased="#mouseClickPlayerListView" prefHeight="287.0" prefWidth="212.0" />
+      <Button layoutX="492.0" layoutY="345.0" mnemonicParsing="false" onAction="#logOutButtonPushed" prefHeight="26.0" prefWidth="70.0" text="Log Out" textFill="#a42a2a">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

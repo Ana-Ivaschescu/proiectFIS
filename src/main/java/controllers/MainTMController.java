@@ -132,5 +132,16 @@ public class MainTMController {
             stage.show();
         }
     }
+    public void logOutButtonPushed()
+    {
+        try {
+            Stage stage = (Stage) teamNameLabel.getScene().getWindow();
+            Parent sign_up_root = FXMLLoader.load(getClass().getResource("../fxml/welcome.fxml"));
+            Scene scene = new Scene(sign_up_root, 800, 600);
+            stage.setScene(scene);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 }
 

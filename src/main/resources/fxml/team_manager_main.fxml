@@ -9,12 +9,21 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainTMController">
+<AnchorPane prefHeight="371.0" prefWidth="703.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainTMController">
    <children>
-      <Button layoutX="454.0" layoutY="352.0" mnemonicParsing="false" onAction="#changeTeamDataPushed" text="Change Team Data" />
-      <Label fx:id="teamNameLabel" layoutX="426.0" layoutY="57.0" prefHeight="34.0" prefWidth="86.0" />
-      <Label fx:id="cityLabel" layoutX="426.0" layoutY="110.0" prefHeight="34.0" prefWidth="86.0" AnchorPane.leftAnchor="426.0" AnchorPane.topAnchor="110.0" />
-      <Label fx:id="leagueLabel" layoutX="426.0" layoutY="160.0" prefHeight="34.0" prefWidth="86.0" />
+      <Button layoutX="453.0" layoutY="313.0" mnemonicParsing="false" onAction="#changeTeamDataPushed" text="Change Team Data" />
+      <Label fx:id="teamNameLabel" layoutX="426.0" layoutY="69.0" prefHeight="34.0" prefWidth="248.0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label fx:id="cityLabel" layoutX="426.0" layoutY="110.0" prefHeight="34.0" prefWidth="248.0" AnchorPane.leftAnchor="426.0" AnchorPane.topAnchor="110.0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label fx:id="leagueLabel" layoutX="426.0" layoutY="148.0" prefHeight="34.0" prefWidth="248.0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
       <Text layoutX="309.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" AnchorPane.bottomAnchor="301.482421875" AnchorPane.leftAnchor="309.0" AnchorPane.rightAnchor="243.4599609375" AnchorPane.topAnchor="74.576171875">
          <font>
             <Font size="18.0" />
@@ -30,18 +39,26 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Label fx:id="descriptionLabel" layoutX="314.0" layoutY="200.0" prefHeight="122.0" prefWidth="248.0" text="Label" />
+      <Label fx:id="descriptionLabel" alignment="TOP_LEFT" layoutX="284.0" layoutY="192.0" prefHeight="111.0" prefWidth="397.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
       <Text layoutX="374.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Data" wrappingWidth="128.53680419921875">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <Button layoutX="283.0" layoutY="352.0" mnemonicParsing="false" onAction="#checkPlayersButtonPushed" text="See Player Positions" />
+      <Button layoutX="284.0" layoutY="313.0" mnemonicParsing="false" onAction="#checkPlayersButtonPushed" text="See Player Positions" />
       <HBox layoutY="-2.0" prefHeight="400.0" prefWidth="298.0">
          <children>
             <ListView fx:id="paListView" onMouseReleased="#paListClick" />
             <ScrollBar orientation="VERTICAL" />
          </children>
       </HBox>
+      <Button layoutX="391.0" layoutY="355.0" mnemonicParsing="false" onAction="#logOutButtonPushed" text="Log Out" textFill="#9c3030">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

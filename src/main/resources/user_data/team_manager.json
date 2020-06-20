@@ -2,12 +2,22 @@
   "tmtest" : {
     "name" : "tm_test_name",
     "team" : {
-      "name" : "test_team_name_changed",
-      "city" : "test_city_name_changed",
-      "league" : "test_league_name_changed",
-      "description" : "test_description_name_changed",
-      "players" : [ ]
+      "name" : "CSS Bega Timisoara",
+      "city" : "Timisoasa",
+      "league" : "A",
+      "description" : "akdkmc",
+      "players" : [ {
+        "name" : "player_name_2",
+        "playing_position" : "wing",
+        "description" : "player_description_2",
+        "available" : false
+      } ]
     },
-    "request_list" : [ ]
+    "request_list" : [ {
+      "tm_name" : "tm_test_name",
+      "pa_name" : "pa_name_test",
+      "p_name" : "player_name_2",
+      "status" : "accept"
+    } ]
   }
 } ]
