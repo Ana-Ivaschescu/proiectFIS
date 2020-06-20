@@ -21,6 +21,11 @@ public class TestDataHolder {
     public static final String TEST_TM_ROLE = "team manager";
     public static final String TEST_TM_NAME = "tm_test_name";
 
+    public static final String TEST_TEAM_NAME = "test_team_name";
+    public static final String TEST_TEAM_CITY = "tm_city_name";
+    public static final String TEST_TEAM_LEAGUE = "tm_league_name";
+    public static final String TEST_TEAM_DESC = "tm_description_name";
+
 
     public static final String TEST_PA_USERNAME = "patest";
     public static final String TEST_PA_PASSWORD = "patest";
