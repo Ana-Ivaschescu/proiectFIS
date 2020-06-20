@@ -74,7 +74,7 @@ public class EditPlayerController {
         for(int i = 0; i<tm_hash_list.size(); i++)
         {
             tm = (TeamManager) tm_hash_list.get(i).values().toArray()[0];
-            for(int j=0; i<tm.getTeam().getPlayers().size(); j++)
+            for(int j=0; j<tm.getTeam().getPlayers().size(); j++)
                 if(tm.getTeam().getPlayers().get(j).getName().equals(p.getName()))
                 {
                     tm.getTeam().getPlayers().get(j).setPlaying_position(p.getPlaying_position());
