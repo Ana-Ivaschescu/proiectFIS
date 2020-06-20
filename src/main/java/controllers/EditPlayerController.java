@@ -14,6 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.Player;
 import main.PlayerAgent;
+import main.TeamManager;
+import utils.DataManager;
 import utils.PathHolder;
 
 import java.io.File;
@@ -32,7 +34,7 @@ public class EditPlayerController {
     public TextField descriptionField;
 
     private Player p;
-    private List<HashMap<String, PlayerAgent>> pa_list;
+    private List<HashMap<String, PlayerAgent>> pa_hash_list;
     private String username;
 
     @FXML
@@ -51,7 +53,7 @@ public class EditPlayerController {
             descriptionField.setText(p.getDescription());
         }
         this.username = username;
-        this.pa_list = pa_list;
+        this.pa_hash_list = pa_list;
     }
 
     public void saveButtonPushed()
@@ -62,28 +64,40 @@ public class EditPlayerController {
         p.setPlaying_position(player_pos);
         p.setDescription(player_desc);
 
-        File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
-        //HashMap<String, PlayerAgent> pa_map = new HashMap<>();
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(f, pa_list);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        DataManager.savePA(pa_hash_list);
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../fxml/player_agent_main.fxml"));
-        Parent root= null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+        //update in team manager
+        List<HashMap<String, TeamManager>> tm_hash_list = DataManager.readTM();
+        TeamManager tm;
+        for(int i = 0; i<tm_hash_list.size(); i++)
+        {
+            tm = (TeamManager) tm_hash_list.get(i).values().toArray()[0];
+            for(int j=0; i<tm.getTeam().getPlayers().size(); j++)
+                if(tm.getTeam().getPlayers().get(j).getName().equals(p.getName()))
+                {
+                    tm.getTeam().getPlayers().get(j).setPlaying_position(p.getPlaying_position());
+                    tm.getTeam().getPlayers().get(j).setDescription(p.getDescription());
+                    break;
+                }
         }
-        MainPAController controller;
-        controller= loader.getController();
-        controller.initData(username);
-        Stage stage = (Stage) playingPosField.getScene().getWindow();
-        Scene scene = new Scene(root, 800, 600);
-        stage.setScene(scene);
+        DataManager.saveTM(tm_hash_list);
+
+        Stage stage;
+        if(playingPosField.getScene() != null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../fxml/player_agent_main.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            MainPAController controller;
+            controller = loader.getController();
+            controller.initData(username);
+            stage = (Stage) playingPosField.getScene().getWindow();
+            Scene scene = new Scene(root, 800, 600);
+            stage.setScene(scene);
+        }
     }
 }

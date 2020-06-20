@@ -1,1 +1,22 @@
-[]
+[ {
+  "patest" : {
+    "name" : "pa_name_test",
+    "request_list" : [ ],
+    "players" : [ {
+      "name" : "player_name_1",
+      "playing_position" : "wing",
+      "description" : "player_description_1_changed",
+      "available" : true
+    }, {
+      "name" : "player_name_2",
+      "playing_position" : "wing",
+      "description" : "player_description_2",
+      "available" : true
+    }, {
+      "name" : "new_player_name_1",
+      "playing_position" : "center",
+      "description" : "new_player_description_1",
+      "available" : true
+    } ]
+  }
+} ]
