@@ -20,6 +20,8 @@ import utils.PathHolder;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
@@ -85,7 +87,11 @@ public class EditPlayerController {
         Stage stage;
         if(playingPosField.getScene() != null) {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../fxml/player_agent_main.fxml"));
+            try {
+                loader.setLocation(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/player_agent_main.fxml")));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
             Parent root = null;
             try {
                 root = loader.load();

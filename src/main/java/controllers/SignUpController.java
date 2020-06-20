@@ -49,7 +49,7 @@ public class SignUpController {
     {
         try {
             Stage stage = (Stage) usernameField.getScene().getWindow();
-            Parent sign_up_root = FXMLLoader.load(getClass().getResource("../fxml/welcome.fxml"));
+            Parent sign_up_root = FXMLLoader.load(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/welcome.fxml")));
             Scene scene = new Scene(sign_up_root, 800, 600);
             stage.setScene(scene);
             System.out.println("pressed back");
@@ -113,7 +113,7 @@ public class SignUpController {
             if(usernameField.getScene() != null) {
                 stage = (Stage) usernameField.getScene().getWindow();
 
-                Parent sign_up_root = FXMLLoader.load(getClass().getResource("../fxml/welcome.fxml"));
+                Parent sign_up_root = FXMLLoader.load(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/welcome.fxml")));
                 Scene scene = new Scene(sign_up_root, 800, 600);
                 stage.setScene(scene);
                 System.out.println("sign in");

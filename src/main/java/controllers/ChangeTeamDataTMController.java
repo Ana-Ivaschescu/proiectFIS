@@ -15,6 +15,8 @@ import utils.PathHolder;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,7 +58,11 @@ public class ChangeTeamDataTMController {
         Stage stage;
         if(teamNameField.getScene() != null) {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../fxml/team_manager_main.fxml"));
+            try {
+                loader.setLocation(new URL("file:///" + PathHolder.getPathToResourceFile("/fxml/team_manager_main.fxml")));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
             Parent root = null;
             try {
                 root = loader.load();
