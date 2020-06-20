@@ -13,6 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import main.PlayerAgent;
 import main.TeamManager;
+import utils.DataManager;
 import utils.PathHolder;
 
 import java.io.File;
@@ -37,22 +38,14 @@ public class MainTMController {
     private TeamManager tm;
     private String username;
     private ArrayList<PlayerAgent> pa_list = new ArrayList<PlayerAgent>();
-    private List<HashMap<String, PlayerAgent>> pa_hash;
-    private List<HashMap<String, TeamManager>> tm_hash;
+    private List<HashMap<String, PlayerAgent>> pa_hash_list;
+    private List<HashMap<String, TeamManager>> tm_hash_list;
 
     public void initData(String username)
     {
         this.username = username;
-        //usernameLabel.setText(this.username);
-        File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/team_manager.json")));
-        ObjectMapper objectMapper = new ObjectMapper();
-        //List<HashMap<String, TeamManager>> tm_hash = null;
-        try {
-            tm_hash = objectMapper.readValue(f, new TypeReference<List<HashMap<String, TeamManager>>>(){});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        for (HashMap<String, TeamManager> stringTeamManagerHashMap : tm_hash)
+        tm_hash_list = DataManager.readTM();
+        for (HashMap<String, TeamManager> stringTeamManagerHashMap : tm_hash_list)
             if (stringTeamManagerHashMap.containsKey(username)) {
                 System.out.println(stringTeamManagerHashMap.get(username));
                 this.tm = stringTeamManagerHashMap.get(username);
@@ -63,17 +56,11 @@ public class MainTMController {
         leagueLabel.setText(tm.getTeam().getLeague());
         descriptionLabel.setText(tm.getTeam().getDescription());
 
-        f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
-        //List<HashMap<String, PlayerAgent>> pa_hash = null;
-        try {
-            pa_hash = objectMapper.readValue(f, new TypeReference<List<HashMap<String, PlayerAgent>>>(){});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        pa_hash_list = DataManager.readPA();
+        //set list
         PlayerAgent temp_pa;
         ObservableList<String> pa_name_list = FXCollections.observableArrayList();
-        for (HashMap<String, PlayerAgent> pa : pa_hash)
+        for (HashMap<String, PlayerAgent> pa : pa_hash_list)
         {
             temp_pa = (PlayerAgent) pa.values().toArray()[0];
             pa_list.add(temp_pa);
@@ -137,7 +124,7 @@ public class MainTMController {
             }
             CheckPlayerAgentController controller;
             controller = loader.getController();
-            controller.initData(selected_pa, tm, username, pa_hash, tm_hash);
+            controller.initData(selected_pa, tm, username, pa_hash_list, tm_hash_list);
             Stage stage = (Stage) teamNameLabel.getScene().getWindow();
             //stage.setTitle("Player data");
             Scene scene = new Scene(root, 800, 600);

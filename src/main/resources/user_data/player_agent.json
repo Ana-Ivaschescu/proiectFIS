@@ -1,18 +1,27 @@
-    
-    [ {
-        "patest" : {
-            "name" : "pa_name_test",
-                    "request_list" : [ ],
-            "players" : [ {
-                "name" : "player_name_1",
-                        "playing_position" : "guard",
-                        "description" : "player_description_1",
-                        "available" : true
-            }, {
-                "name" : "player_name_2",
-                        "playing_position" : "wing",
-                        "description" : "player_description_2",
-                        "available" : true
-            } ]
-        }
+[ {
+  "patest" : {
+    "name" : "pa_name_test",
+    "request_list" : [ {
+      "tm_name" : "tm_test_name",
+      "pa_name" : "pa_name_test",
+      "p_name" : "player_name_1",
+      "status" : "accept"
+    }, {
+      "tm_name" : "tm_test_name",
+      "pa_name" : "pa_name_test",
+      "p_name" : "player_name_2",
+      "status" : "deny"
+    } ],
+    "players" : [ {
+      "name" : "player_name_1",
+      "playing_position" : "guard",
+      "description" : "player_description_1",
+      "available" : false
+    }, {
+      "name" : "player_name_2",
+      "playing_position" : "wing",
+      "description" : "player_description_2",
+      "available" : true
     } ]
+  }
+} ]

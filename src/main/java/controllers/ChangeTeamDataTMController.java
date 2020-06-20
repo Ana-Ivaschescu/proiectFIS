@@ -6,9 +6,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.TeamManager;
+import utils.DataManager;
 import utils.PathHolder;
 
 import java.io.File;
@@ -40,28 +42,17 @@ public class ChangeTeamDataTMController {
         String teamLeague = leagueField.getText();
         String teamDescription = descriptionField.getText();
 
-        File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/team_manager.json")));
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<HashMap<String, TeamManager>> tm_list = null;
-        try {
-            tm_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, TeamManager>>>(){});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        for(int i=0; i<tm_list.size(); i++)
-            if(tm_list.get(i).containsKey(username)) {
-                tm_list.get(i).get(username).getTeam().setName(teamName);
-                tm_list.get(i).get(username).getTeam().setCity(teamCity);
-                tm_list.get(i).get(username).getTeam().setLeague(teamLeague);
-                tm_list.get(i).get(username).getTeam().setDescription(teamDescription);
+        List<HashMap<String, TeamManager>> tm_hash_list = null;
+        tm_hash_list = DataManager.readTM();
+        for(int i=0; i<tm_hash_list.size(); i++)
+            if(tm_hash_list.get(i).containsKey(username)) {
+                tm_hash_list.get(i).get(username).getTeam().setName(teamName);
+                tm_hash_list.get(i).get(username).getTeam().setCity(teamCity);
+                tm_hash_list.get(i).get(username).getTeam().setLeague(teamLeague);
+                tm_hash_list.get(i).get(username).getTeam().setDescription(teamDescription);
                 break;
             }
-        try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(f, tm_list);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        DataManager.saveTM(tm_hash_list);
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/team_manager_main.fxml"));
         Parent root= null;
