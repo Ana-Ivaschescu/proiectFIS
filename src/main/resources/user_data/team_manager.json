@@ -2,27 +2,12 @@
   "tmtest" : {
     "name" : "tm_test_name",
     "team" : {
-      "name" : "tm_team_test_name",
-      "city" : "city_name_1",
-      "league" : "league_1",
-      "description" : "team_description_1",
-      "players" : [ {
-        "name" : "player_name_1",
-        "playing_position" : "guard",
-        "description" : "player_description_1",
-        "available" : false
-      } ]
+      "name" : "test_team_name_changed",
+      "city" : "test_city_name_changed",
+      "league" : "test_league_name_changed",
+      "description" : "test_description_name_changed",
+      "players" : [ ]
     },
-    "request_list" : [ {
-      "tm_name" : "tm_test_name",
-      "pa_name" : "pa_name_test",
-      "p_name" : "player_name_1",
-      "status" : "accept"
-    }, {
-      "tm_name" : "tm_test_name",
-      "pa_name" : "pa_name_test",
-      "p_name" : "player_name_2",
-      "status" : "deny"
-    } ]
+    "request_list" : [ ]
   }
 } ]

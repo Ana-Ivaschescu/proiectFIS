@@ -22,9 +22,14 @@ public class TestDataHolder {
     public static final String TEST_TM_NAME = "tm_test_name";
 
     public static final String TEST_TEAM_NAME = "test_team_name";
-    public static final String TEST_TEAM_CITY = "tm_city_name";
-    public static final String TEST_TEAM_LEAGUE = "tm_league_name";
-    public static final String TEST_TEAM_DESC = "tm_description_name";
+    public static final String TEST_TEAM_CITY = "test_city_name";
+    public static final String TEST_TEAM_LEAGUE = "test_league_name";
+    public static final String TEST_TEAM_DESC = "test_description_name";
+
+    public static final String TEST_TEAM_NAME_CHANGED = "test_team_name_changed";
+    public static final String TEST_TEAM_CITY_CHANGED = "test_city_name_changed";
+    public static final String TEST_TEAM_LEAGUE_CHANGED = "test_league_name_changed";
+    public static final String TEST_TEAM_DESC_CHANGED = "test_description_name_changed";
 
 
     public static final String TEST_PA_USERNAME = "patest";
@@ -64,10 +69,10 @@ public class TestDataHolder {
                 "  \"tmtest\" : {\n" +
                 "    \"name\" : \"tm_test_name\",\n" +
                 "    \"team\" : {\n" +
-                "      \"name\" : \"tm_team_test_name\",\n" +
-                "      \"city\" : \"city_name_1\",\n" +
-                "      \"league\" : \"league_1\",\n" +
-                "      \"description\" : \"team_description_1\",\n" +
+                "      \"name\" : \"test_team_name\",\n" +
+                "      \"city\" : \"test_city_name\",\n" +
+                "      \"league\" : \"test_league_name\",\n" +
+                "      \"description\" : \"test_description_name\",\n" +
                 "      \"players\" : [ ]\n" +
                 "    },\n" +
                 "    \"request_list\" : [ ]\n" +

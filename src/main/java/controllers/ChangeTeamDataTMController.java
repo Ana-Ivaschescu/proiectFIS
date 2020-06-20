@@ -53,19 +53,22 @@ public class ChangeTeamDataTMController {
                 break;
             }
         DataManager.saveTM(tm_hash_list);
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../fxml/team_manager_main.fxml"));
-        Parent root= null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+        Stage stage;
+        if(teamNameField.getScene() != null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../fxml/team_manager_main.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            MainTMController controller;
+            controller = loader.getController();
+            controller.initData(username);
+            stage = (Stage) teamNameField.getScene().getWindow();
+            Scene scene = new Scene(root, 800, 600);
+            stage.setScene(scene);
         }
-        MainTMController controller;
-        controller= loader.getController();
-        controller.initData(username);
-        Stage stage = (Stage) teamNameField.getScene().getWindow();
-        Scene scene = new Scene(root, 800, 600);
-        stage.setScene(scene);
     }
 }
