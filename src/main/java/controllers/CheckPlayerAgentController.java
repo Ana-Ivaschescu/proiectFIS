@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
@@ -30,6 +31,9 @@ public class CheckPlayerAgentController {
     @FXML
     public ListView<String> player_list = new ListView<>();
 
+    ObservableList<String> pos_list = FXCollections.observableArrayList("all", "guard", "wing", "center");
+    @FXML
+    public ChoiceBox<String> positionBox = new ChoiceBox<>();
     private  String username;
     private PlayerAgent pa;
     private List<HashMap<String, PlayerAgent>> pa_hash_list;
@@ -44,11 +48,9 @@ public class CheckPlayerAgentController {
         this.tm_hash_list = tm_hash;
         paNameLabel.setText(pa.getName());
         requestSentLabel.setText("");
-        ObservableList<String> player_name_pos_av_list = FXCollections.observableArrayList();
-        for(Player p : pa.getPlayers())
-            player_name_pos_av_list.add(p.getName() + "  |  " + p.getPlaying_position() + "  |  " + p.isAvailable());
-
-        player_list.setItems(player_name_pos_av_list);
+        positionBox.setItems(pos_list);
+        positionBox.setValue("all");
+        updateList(positionBox.getValue());
     }
 
 
@@ -73,7 +75,9 @@ public class CheckPlayerAgentController {
     }
     public void checkPlayerDataButtonPressed()
     {
-        String player_name = player_list.getSelectionModel().getSelectedItem().split("  |  ")[0];
+        String player_name = "";
+        if(player_list.getItems().size()!= 0)
+            player_name = player_list.getSelectionModel().getSelectedItem().split("  |  ")[0];
 
         System.out.println(player_name);
         Player p = null;
@@ -83,29 +87,31 @@ public class CheckPlayerAgentController {
                 p = temp_p;
                 break;
             }
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../fxml/tm_check_req_player_data.fxml"));
-        Parent root= null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(p!= null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../fxml/tm_check_req_player_data.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            TMCheckReqPlayerData controller;
+            controller = loader.getController();
+            controller.initData(p);
+            Stage stage = new Stage();
+            //stage.setTitle("Player data");
+            Scene scene = new Scene(root, 500, 300);
+            stage.setScene(scene);
+            stage.show();
         }
-        TMCheckReqPlayerData controller;
-        controller= loader.getController();
-        controller.initData(p);
-        Stage stage = new Stage();
-        //stage.setTitle("Player data");
-        Scene scene = new Scene(root, 500, 300);
-        stage.setScene(scene);
-        stage.show();
-
     }
 
     public void requestButtonPressed()
     {
-        String player_name = player_list.getSelectionModel().getSelectedItem().split("  |  ")[0];
+        String player_name = "";
+        if(player_list.getItems().size() != 0)
+            player_name = player_list.getSelectionModel().getSelectedItem().split("  |  ")[0];
 
         System.out.println(player_name);
         Player p = null;
@@ -149,6 +155,25 @@ public class CheckPlayerAgentController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void updateList(String pos)
+    {
+        ObservableList<String> player_name_pos_av_list = FXCollections.observableArrayList();
+        if(pos.equals("all"))
+            for(Player p : pa.getPlayers())
+                player_name_pos_av_list.add(p.getName() + "  |  " + p.getPlaying_position() + "  |  " + p.isAvailable());
+        else
+            for(Player p : pa.getPlayers())
+                if(p.getPlaying_position().equals(pos))
+                    player_name_pos_av_list.add(p.getName() + "  |  " + p.getPlaying_position() + "  |  " + p.isAvailable());
+
+        player_list.setItems(player_name_pos_av_list);
+    }
+    public void searchButtonPressed()
+    {
+        String pos = positionBox.getValue();
+        updateList(pos);
     }
 }
 
