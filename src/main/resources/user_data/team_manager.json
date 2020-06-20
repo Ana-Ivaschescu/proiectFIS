@@ -6,8 +6,18 @@
       "city" : "Timisoasa",
       "league" : "A",
       "description" : "akdkmc",
-      "players" : [ ]
+      "players" : [ {
+        "name" : "player_name_2",
+        "playing_position" : "wing",
+        "description" : "player_description_2",
+        "available" : false
+      } ]
     },
-    "request_list" : [ ]
+    "request_list" : [ {
+      "tm_name" : "tm_test_name",
+      "pa_name" : "pa_name_test",
+      "p_name" : "player_name_2",
+      "status" : "accept"
+    } ]
   }
 } ]

@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -30,7 +31,7 @@ public class CheckPlayerAgentController {
     public Label requestSentLabel;
     @FXML
     public ListView<String> player_list = new ListView<>();
-
+    
     ObservableList<String> pos_list = FXCollections.observableArrayList("all", "guard", "wing", "center");
     @FXML
     public ChoiceBox<String> positionBox = new ChoiceBox<>();
