@@ -27,11 +27,6 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="122.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Available positions" wrappingWidth="155.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
       <Text layoutX="116.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Description" wrappingWidth="148.205078125">
          <font>
             <Font size="18.0" />
@@ -58,11 +53,6 @@
          </font>
       </Label>
       <Label fx:id="teamDescriptionLabel" layoutX="300.0" layoutY="200.0" prefHeight="56.0" prefWidth="121.0" text="Label">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="availablePositionsLabel" layoutX="300.0" layoutY="282.0" prefHeight="27.0" prefWidth="121.0" text="Label">
          <font>
             <Font size="18.0" />
          </font>

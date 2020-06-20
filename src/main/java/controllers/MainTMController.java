@@ -52,7 +52,6 @@ public class MainTMController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         for (HashMap<String, TeamManager> stringTeamManagerHashMap : tm_hash)
             if (stringTeamManagerHashMap.containsKey(username)) {
                 System.out.println(stringTeamManagerHashMap.get(username));

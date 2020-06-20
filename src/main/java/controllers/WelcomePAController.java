@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import main.PlayerAgent;
 import main.Team;
 import main.TeamManager;
+import utils.DataManager;
 import utils.PathHolder;
 
 import javafx.scene.control.TextField;
@@ -38,24 +39,13 @@ public class WelcomePAController {
     }
     public void nextButtonPressed(){
         PlayerAgent pa = new PlayerAgent(namefield.getText());
-
-        File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
         HashMap<String,PlayerAgent> pa_map = new HashMap<>();
         pa_map.put(this.username, pa);
 
-        ObjectMapper objectMapper = new ObjectMapper();
         List<HashMap<String, PlayerAgent>> pa_list = null;
-        try {
-            pa_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, PlayerAgent>>>(){});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        pa_list = DataManager.readPA();
         pa_list.add(pa_map);
-        try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(f, pa_list);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        DataManager.savePA(pa_list);
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../fxml/player_agent_main.fxml"));
