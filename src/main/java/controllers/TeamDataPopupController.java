@@ -16,8 +16,6 @@ public class TeamDataPopupController {
     public Label teamLeagueLabel;
     @FXML
     public Label teamDescriptionLabel;
-    @FXML
-    public Label availablePositionsLabel;
 
     public void initData(TeamManager tm)
     {
@@ -27,6 +25,5 @@ public class TeamDataPopupController {
         teamLeagueLabel.setText(tm.getTeam().getLeague());
         teamDescriptionLabel.setText(tm.getTeam().getDescription());
         //availablePositionsLabel.setText(tm.getTeam().getName());
-        availablePositionsLabel.setText("nu e inca facut");
     }
 }

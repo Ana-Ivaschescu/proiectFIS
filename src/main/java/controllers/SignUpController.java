@@ -107,16 +107,7 @@ public class SignUpController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /*
-        boolean matched = false;
-        try {
-            matched = PasswordHasher.validatePassword(passwordField.getText(), credentials.get("password"));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-        }
-         */
+        //change stage
         try {
             Stage stage;
             if(usernameField.getScene() != null) {

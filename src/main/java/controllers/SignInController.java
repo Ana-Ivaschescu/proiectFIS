@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.PlayerAgent;
 import main.TeamManager;
+import utils.DataManager;
 import utils.PasswordHasher;
 import utils.PathHolder;
 
@@ -56,7 +57,6 @@ public class SignInController {
     public  void signInButtonPushed()
     {
         String username = usernameField.getText().toLowerCase();
-
         File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/credentials.json")));
         //read credentials
         ObjectMapper objectMapper = new ObjectMapper();
@@ -66,7 +66,6 @@ public class SignInController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         //check credentials
         int ok = 0;
         boolean matched = false;
@@ -103,19 +102,8 @@ public class SignInController {
     public int signInSuccessful(String username, String role)
     {
         System.out.println("Sign in as " + role);
-        ObjectMapper objectMapper = new ObjectMapper();
-        File f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/team_manager.json")));
-        try {
-            tm_hash_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, TeamManager>>>(){});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        f = new File(String.valueOf(PathHolder.getPathToResourceFile("user_data/player_agent.json")));
-        try {
-            pa_hash_list = objectMapper.readValue(f, new TypeReference<List<HashMap<String, PlayerAgent>>>(){});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        tm_hash_list = DataManager.readTM();
+        pa_hash_list = DataManager.readPA();
         try {
             FXMLLoader loader = new FXMLLoader();
             if(role.equals("team manager"))
