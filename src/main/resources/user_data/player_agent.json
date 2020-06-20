@@ -24,4 +24,10 @@
       "available" : true
     } ]
   }
+}, {
+  "pa2" : {
+    "name" : "player_agent",
+    "request_list" : [ ],
+    "players" : [ ]
+  }
 } ]

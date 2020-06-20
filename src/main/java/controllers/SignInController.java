@@ -38,7 +38,7 @@ public class SignInController {
     @FXML
     private void initialize()
     {
-        invalidLabel.setText("Test");
+        invalidLabel.setText("");
     }
 
     public void backButtonPushed()
