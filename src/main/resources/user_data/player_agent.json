@@ -14,4 +14,15 @@
       "available" : false
     } ]
   }
+}, {
+  "patest" : {
+    "name" : "pa_name",
+    "request_list" : [ ],
+    "players" : [ {
+      "name" : "palyer",
+      "playing_position" : "guard",
+      "description" : "cxczxcxz",
+      "available" : true
+    } ]
+  }
 } ]
